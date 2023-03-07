@@ -1,6 +1,7 @@
 <template>
   <NavBar/>
   <router-view/>
+  <FooterComponent/>
 </template>
 
 <style>
@@ -9,7 +10,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #000;
 }
 
 nav {
@@ -28,10 +29,11 @@ nav a.router-link-exact-active {
 
 <script>
 import NavBar from './components/NavBar.vue';
-
+import FooterComponent from './components/FooterComponent.vue';
 export default{
   components: {
     NavBar,
+    FooterComponent
 }
 }
 </script>
