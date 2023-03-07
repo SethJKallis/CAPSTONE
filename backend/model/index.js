@@ -106,7 +106,7 @@ class category {
         })
     }
 
-    createCategory(result){
+    createCategory(data, result){
         sql.query(`INSERT INTO category SET ?;`, [data], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
@@ -114,13 +114,13 @@ class category {
     }
 
     updateCategory(data, id, result){
-        sql.query(`INSERT INTO category SET ? WHERE catID = ?;`, [data, id] , (err,results) => {
+        sql.query(`UPDATE category SET ? WHERE catID = ?;`, [data, id] , (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
     }
 
-    deleteCategory(result){
+    deleteCategory(id, result){
         sql.query(`DELETE FROM category WHERE catID = ?;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
