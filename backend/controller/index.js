@@ -131,9 +131,9 @@ class control {
         })
     }
 
-    fetchProductById(req,res){
+    fetchOrderByUserId(req,res){
         const id = req.params.id;
-        ordersModel.fetchOrderById(id, (err,results) => {
+        ordersModel.fetchOrderByUserId(id, (err,results) => {
             if(err) res.status(400).send({err});
             else res.status(200).send({results});
         })

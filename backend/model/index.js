@@ -136,7 +136,7 @@ class orders {
         })
     }
 
-    fetchOrderById(id, result){
+    fetchOrderByUserId(id, result){
         sql.query(`SELECT orderId, prodId, userID FROM orders WHERE userID = ?`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
@@ -157,7 +157,7 @@ class orders {
         })
     }
 
-    deleteOrder(result){
+    deleteOrder(id, result){
         sql.query(`DELETE FROM orders WHERE orderID = ?;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);

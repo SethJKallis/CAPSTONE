@@ -40,7 +40,7 @@ router.delete('/products/:id', controller.deleteProduct);
 //ORDERS
 router.get('/orders', controller.fetchOrders);
 
-router.get('/orders/:id', controller.fetchProductById);
+router.get('/orders/:id', controller.fetchOrderByUserId);
 
 router.post('/orders', bodyParser.json(), controller.createOrder);
 
