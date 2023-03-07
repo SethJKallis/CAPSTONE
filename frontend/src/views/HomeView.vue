@@ -4,7 +4,7 @@
       <div class="left col pe-5 pe-lg-0">
         <h2 class="display-4">Site Name</h2>
         <p class="lead text-start w-100">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil eaque saepe numquam pariatur voluptatem excepturi asperiores nisi eos voluptas voluptates, impedit distinctio magni architecto. Laborum, culpa quae? Labore, nulla unde.</p>
-        <button class="btn btn-dark align-self-start mb-sm-1 mb-0">See Products</button>
+        <button class="btn btn-dark align-self-start mb-sm-1 mb-0"><router-link class="linkBtn" to="/products"> See Products</router-link></button>
       </div>
       <div class="right d-none d-lg-flex col">
         <img class="homeImage me-5" alt="Home Image" src="../assets/digitalcoffee.png">
@@ -14,17 +14,17 @@
       <div class="category col-3">
         <h2 class="display-6">Coffee</h2>
         <img class="catImage mb-2" src="../assets/homepageimg.png" alt="Cat Image" width="150" height="150">
-        <button class="btn btn-dark">Coffee Selection</button>
+        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Coffee Selection</router-link></button>
       </div>
       <div class="category col-3">
         <h2 class="display-6">Tea</h2>
         <img class="catImage mb-2" src="../assets/teadigitalart.png" alt="Cat Image" width="150" height="150">
-        <button class="btn btn-dark">Tea Selection</button>
+        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Tea Selection</router-link></button>
       </div>
       <div class="category col-3">
         <h2 class="display-6">Energy Drinks</h2>
         <img class="catImage mb-2" src="../assets/energydrinkdigitalart.png" alt="Cat Image" width="150" height="150">
-        <button class="btn btn-dark">Energy Drink Selection</button>
+        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Energy Drink Selection</router-link></button>
       </div>
     </div>
   </div>
@@ -41,6 +41,11 @@ export default {
 </script>
 
 <style scoped>
+.linkBtn{
+  text-decoration: none;
+  color: inherit;
+}
+
 .home{
   background-color: #ff9a3c;
 }
