@@ -1,7 +1,7 @@
 const sql = require('../config/index');
 const bcrypt = require('bcrypt');
 
-class user {
+class users {
     fetchUsers(result){
         sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate FROM users;`, (err,results) => {
             if(err) result(err, null);
@@ -128,7 +128,7 @@ class category {
     }
 }
 
-class order {
+class orders {
     fetchOrders(result){
         sql.query(`SELECT orderID, prodID, userID FROM orders;`, (err,results) => {
             if(err) result(err,null);
@@ -164,3 +164,5 @@ class order {
         })
     }
 }
+
+module.exports = {users, products, category, orders}

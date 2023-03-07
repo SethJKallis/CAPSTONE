@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3500;
+const routes = require('./routes/index');
 
 app.use(cors());
 app.use(cookieParser());
@@ -19,9 +20,7 @@ app.use((req,res,next) => {
     next();
 });
 
-app.get('/', (req,res) => {
-    res.send({message: "This is a test!"})
-})
+app.use(routes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
