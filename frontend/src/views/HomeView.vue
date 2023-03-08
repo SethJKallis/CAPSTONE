@@ -83,7 +83,7 @@ export default {
 
 .category{
   /* border: 2px solid gold; */
-  border-radius: 1em;
+  /* border-radius: 1em; */
   background-color: #ff9a3c;
   min-width: 200px;
   min-height: 300px;
@@ -125,6 +125,15 @@ export default {
 
 .catImage{
   border-radius: 50%;
+  transition: all 0.25s ease 0s;
+  
+}
+
+.catImage:hover{
+  scale: 1.025;
+  border-radius: 0;
+  box-shadow: 7px 7px 7px #000;
+
 }
 
 button{
