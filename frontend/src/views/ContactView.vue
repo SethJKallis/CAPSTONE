@@ -20,8 +20,9 @@ label{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center 0;
-    height: 87.2vh;
-    padding: 5em 0 0 0;
+    min-height: 100vh;
+    
+    padding: 8em 0 1em 0;
 }
 .contactForm{
     background-color: #0000005f;

@@ -38,3 +38,12 @@
 </nav>
     </div>
 </template>
+
+<style scoped>
+nav{
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+</style>

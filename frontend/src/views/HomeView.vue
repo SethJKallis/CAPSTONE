@@ -4,7 +4,7 @@
       <div class="left col pe-5 pe-lg-0">
         <h2 class="display-4">Site Name</h2>
         <p class="lead text-start w-100">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nihil eaque saepe numquam pariatur voluptatem excepturi asperiores nisi eos voluptas voluptates, impedit distinctio magni architecto. Laborum, culpa quae? Labore, nulla unde.</p>
-        <button class="btn btn-dark align-self-start mb-sm-1 mb-0"><router-link class="linkBtn" to="/products"> See Products</router-link></button>
+        <button class="btn btn-dark align-self-start mb-1 mb-0"><router-link class="linkBtn" to="/products"> See Products</router-link></button>
       </div>
       <div class="right d-none d-lg-flex col">
         <img class="homeImage me-5" alt="Home Image" src="../assets/digitalcoffee.png">
@@ -52,7 +52,8 @@ export default {
 .content-container{
   background-color: #155263;
   overflow-x: hidden;
-  min-height: 87.3vh;
+  min-height: 100vh;
+  padding: 4em 0 1em 0;
 }
 
 .left{
