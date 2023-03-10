@@ -33,7 +33,16 @@
 </template>
 
 <script>
+import { useStore } from 'vuex';
+import {computed} from '@vue/runtime-core';
 export default{
+setup(){
+  const store = useStore();
+  const user = computed(() => store.state.user);
 
+  return{
+    user
+  }
+}
 }
 </script>

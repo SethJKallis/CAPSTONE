@@ -20,10 +20,12 @@ export default{
         const store = useStore();
         store.dispatch('fetchProducts');
 
+        const user = computed(() => store.state.user);
         const products = computed(() => store.state.products);
         const showSpinner = computed(() => store.state.showSpinner);
 
         return{
+            user,
             products,
             showSpinner
         }

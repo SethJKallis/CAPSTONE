@@ -39,42 +39,46 @@ export default createStore({
   actions: {
     async fetchUsers(context){
       const res = await axios.get(`${renderLink}/users`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setUsers', results);
       } else context.commit('setMessage', err);
     },
-    async fetchUserById(id, context){
+    async fetchUserById(context, id){
       const res = await axios.get(`${renderLink}/users/${id}`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setUsers', results);
       } else context.commit('setMessage', err);
     },
-    async updateUser(payload, context){
+    async updateUser(context, payload){
       const res = await axios.put(`${renderLink}/users/${payload.userID}`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
     },
-    async register(payload, context){
+    async register(context, payload){
       const res = await axios.post(`${renderLink}/register`, payload);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
+        console.log(results);
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
     },
-    async login(payload, context){
+    async login(context, payload){
       const res = await axios.post(`${renderLink}/login`, payload);
-      const {results, err} = await res.data;
-      if(results){
-        context.commit('setUser', results);
-      } else context.commit('setMessage', err);
+      const {err, result} = await res.data;
+      if(result){
+        console.log(result[0])
+        context.commit('setUser', result[0]);
+      } else {
+        context.commit('setMessage', err);
+      }
     },
-    async deleteUser(id, context){
+    async deleteUser(context, id){
       const res = await axios.delete(`${renderLink}/users/${id}`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
@@ -82,35 +86,35 @@ export default createStore({
 
     async fetchProducts(context){
       const res = await axios.get(`${renderLink}/products`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setProducts', results);
       } else context.commit('setMessage', err);
     }, 
-    async fetchProductById(id, context){
+    async fetchProductById(context, id){
       const res = await axios.get(`${renderLink}/products/${id}`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setProduct', results);
       } else context.commit('setMessage', err);
     },
-    async updateProduct(payload, context){
+    async updateProduct(context, payload){
       const res = await axios.put(`${renderLink}/products/${payload.prodID}`, payload);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
     },
-    async addProduct(payload, context){
+    async addProduct(context, payload){
       const res = await axios.post(`${renderLink}/products`, payload);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
     },
-    async deleteProduct(id, context){
+    async deleteProduct(context, id){
       const res = await axios.delete(`${renderLink}/products/${id}`);
-      const {results, err} = await res.data;
+      const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);

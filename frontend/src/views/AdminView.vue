@@ -71,9 +71,13 @@ export default{
 
         const users = computed(() => store.state.users);
         const products = computed(() => store.state.products);
-        
+        const userLoggedIn =JSON.parse(localStorage.getItem('user'));
+        let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
+
         return{
+            user,
             users,
+            userLoggedIn,
             products
         }
     }

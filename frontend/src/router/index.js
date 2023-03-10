@@ -6,7 +6,8 @@ import ContactView from '../views/ContactView.vue'
 import SignInSignup from '../views/SignInSignUp.vue'
 import ProductsView from '../views/ProductsView.vue'
 import SingleProductView from '../views/SingleProduct.vue'
-
+import UserProfile from '../views/UserProfileView.vue'
+import CartView from '../views/CartView.vue'
 
 const routes = [
   {
@@ -43,6 +44,16 @@ const routes = [
     path:'/products/:id',
     name: 'product',
     component:SingleProductView
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component:UserProfile
+  },
+  {
+    path:'/user/cart',
+    name:'cart',
+    component:CartView
   }
 ]
 

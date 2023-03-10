@@ -49,3 +49,19 @@ textarea:focus{
     box-shadow: 5px 5px 8px #000;
 }
 </style>
+
+<script>
+import { useStore } from 'vuex';
+import {computed} from '@vue/runtime-core';
+
+export default{
+    setup(){
+        const store = useStore();
+        const user = computed(() => store.state.user);
+
+        return{
+            user
+        }
+    }
+}
+</script>

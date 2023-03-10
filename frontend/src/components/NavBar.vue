@@ -21,14 +21,20 @@
             <li class="nav-item me-lg-3 my-sm-1 my-lg-0">
                 <router-link to="/contact">Contact</router-link>
             </li>
-            <li class="nav-item my-1 my-lg-0">
+            <li v-if="user !== null && user.userRole == 'admin'" class="nav-item my-1 my-lg-0">
               <router-link to="/admin">Admin</router-link>
             </li>
-            
         </div>
-        <div class="lastRoutes me-lg-1 text-center mx-auto px-auto">
-            <li class="nav-item mt-sm-3 mt-lg-0">
+        
+        <div class="lastRoutes me-lg-1 text-center mx-auto px-auto d-flex">
+            <li v-if="user == null" class="nav-item mt-sm-3 mt-lg-0">
                 <router-link to="/userSign">Sign In/Sign Up</router-link>
+            </li>
+            <li v-if="user !== null" class="nav-item me-2">
+              <router-link to="/user/cart">Cart</router-link>
+            </li>
+            <li v-if="user !== null" class="nav-item">
+              <router-link to="/user">Profile</router-link>
             </li>
         </div>
 
@@ -47,3 +53,15 @@ nav{
   width: 100%;
 }
 </style>
+
+<script>
+export default{
+  setup(){
+    const userLoggedIn =JSON.parse(localStorage.getItem('user'));
+    let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
+    return{
+      user
+    }
+  }
+}
+</script>
