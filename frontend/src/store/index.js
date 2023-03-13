@@ -52,7 +52,7 @@ export default createStore({
       } else context.commit('setMessage', err);
     },
     async updateUser(context, payload){
-      const res = await axios.put(`${renderLink}/users/${payload.userID}`);
+      const res = await axios.put(`${renderLink}/users/${payload.userID}`, payload);
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
@@ -62,7 +62,6 @@ export default createStore({
       const res = await axios.post(`${renderLink}/register`, payload);
       const {err,results} = await res.data;
       if(results){
-        console.log(results);
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
     },
@@ -97,6 +96,12 @@ export default createStore({
       if(results){
         context.commit('setProduct', results);
       } else context.commit('setMessage', err);
+    },
+    async fetchProductByCatId(context, id){
+      const res = await axios.get(`${renderLink}/product/category/${id}`);
+      const {results ,err} = await res.data;
+      if(results)context.commit('setProducts', results);
+      else context.commit('setMessage', err);
     },
     async updateProduct(context, payload){
       const res = await axios.put(`${renderLink}/products/${payload.prodID}`, payload);

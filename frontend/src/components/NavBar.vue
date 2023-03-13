@@ -30,11 +30,17 @@
             <li v-if="user == null" class="nav-item mt-sm-3 mt-lg-0">
                 <router-link to="/userSign">Sign In/Sign Up</router-link>
             </li>
-            <li v-if="user !== null" class="nav-item me-2">
-              <router-link to="/user/cart">Cart</router-link>
+            <li v-if="user !== null" class="nav-item m-0 me-lg-3">
+              <router-link to="/user/cart">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-cart4 d-none d-lg-block" viewBox="0 0 16 16">
+  <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+</svg>
+<p class="d-block d-lg-none">Checkout</p>
+</router-link>
             </li>
             <li v-if="user !== null" class="nav-item">
-              <router-link to="/user">Profile</router-link>
+              <router-link to="/user"><img class="rounded-circle d-none d-lg-block" :src="user.userProfile" :alt="user.firstName" width="50" height="50"></router-link>
+              <p class="d-block d-lg-none fw-bold fs-5">{{ user.firstName + ' ' + user.lastName }}</p>
             </li>
         </div>
 
@@ -51,6 +57,18 @@ nav{
   position: fixed;
   top: 0;
   width: 100%;
+}
+li{
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width:992px) {
+  li{
+    display: block;
+  }
+  .lastRoutes{
+    flex-flow: column nowrap;
+  }
 }
 </style>
 

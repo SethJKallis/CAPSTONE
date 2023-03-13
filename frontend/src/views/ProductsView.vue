@@ -18,16 +18,25 @@ import {computed} from '@vue/runtime-core';
 export default{
     setup(){
         const store = useStore();
-        store.dispatch('fetchProducts');
+        let locationURL = location.pathname;
+        let locationArr = locationURL.split('/');
+        let catID = locationArr[locationArr.length-1];
+        locationArr.pop();
+        if(locationArr.join('/') == '/products/category'){
+            store.dispatch('fetchProductByCatId', catID);
+        } else{
+            store.dispatch('fetchProducts');
+        return
+        }
 
-        const user = computed(() => store.state.user);
+        const userLoggedIn = JSON.parse(localStorage.getItem('user'));
+        let user = userLoggedIn == null || userLoggedIn == undefined ? null : userLoggedIn;
+
         const products = computed(() => store.state.products);
-        const showSpinner = computed(() => store.state.showSpinner);
 
         return{
             user,
             products,
-            showSpinner
         }
     }
 }
@@ -41,7 +50,7 @@ export default{
 
 }
 .productContainer{
-    background-color: #ff9a3c;
+    background-color: #000000c6;
     /* border: 2px solid red; */
     min-width: 299px;
     display: flex;

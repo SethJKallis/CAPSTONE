@@ -7,7 +7,7 @@
             <label for="userPass" class="mt-3 lead">Password</label>
             <input type="password" name="userPass" id="userPass" class="form-control w-50 mx-auto mb-5" required placeholder="Enter Your Password..." v-model="signInPayload.userPass">
             <button class="btn btn-dark mb-3 me-1 mt-4" v-on:click.prevent="userSignIn(signInPayload)">Sign In</button>
-            <button class="btn btn-danger mb-3 mt-4" v-on:click.prevent="changeSign(signInPayload)">Sign Up</button>
+            <button class="btn btn-danger mb-3 mt-4" v-on:click.prevent="changeSign()">Sign Up</button>
         </form>
 
         <form v-if="!signIn && user == null" class="signUp">
@@ -25,7 +25,7 @@
         </form>
 
         <div v-if="user !== null" class="userSignedIn">
-            <h1>YOUVE SIGNED IN!</h1>
+            <h1>YOU'VE SIGNED IN!</h1>
         </div>
     </div>
     </template>

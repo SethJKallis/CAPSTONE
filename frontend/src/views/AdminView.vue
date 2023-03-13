@@ -21,17 +21,18 @@
                         <td>{{ product.quantity }}</td>
                         <td class="d-none d-sm-table-cell"><img :src="product.prodImg" :alt="product.prodName" width="85" height="75"></td>
                         <td>
-                                <button class="btn btn-dark">Edit</button>
-                                <button class="btn btn-danger">Del</button>
+                                <UpdateProduct :product="product" class="btn btn-dark"/>
+                                <button class="btn btn-danger" v-on:click="deleteProduct(product)">Del</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <AddProduct class="btn btn-primary p-0 mb-5"/>
         </div>
 
         <div class="usersTable pb-2">
             <h2 class="display-5 fw-bold">Users Table</h2>
-            <table class="table table-hover table-striped table-dark mb-0 mx-auto">
+            <table class="table table-hover table-striped table-dark mx-auto">
                 <thead>
                     <tr>
                         <th class="lead fw-bold">Name</th>
@@ -50,12 +51,13 @@
                         <td class="d-none d-sm-table-cell">{{ user.joinDate }}</td>
                         <td class="d-none d-sm-table-cell"><img class="rounded-circle" :src="user.userProfile" :alt="user.firstName + ' ' + user.lastName" width="85" height="75"></td>
                         <td>
-                                <button class="btn btn-dark">Edit</button>
+                                <UpdateUser :userDetails="user" class="btn btn-dark"/>
                                 <button class="btn btn-danger">Del</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
+            <AddUser class="btn btn-primary p-0"/>
         </div>
     </div>
 </template>
@@ -63,6 +65,11 @@
 <script>
 import { useStore } from 'vuex';
 import {computed} from '@vue/runtime-core';
+import UpdateProduct from '../components/UpdateProduct.vue';
+import AddProduct from '../components/AddProduct.vue';
+import UpdateUser from '../components/UpdateUser.vue';
+import AddUser from '../components/AddUser.vue';
+
 export default{
     setup(){
         const store = useStore();
@@ -74,12 +81,24 @@ export default{
         const userLoggedIn =JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
 
+
+        let deleteProduct = async (product) => {
+            await store.dispatch('deleteProduct', product.prodID);
+            await store.dispatch('fetchProducts');
+        }
         return{
             user,
             users,
             userLoggedIn,
-            products
+            products,
+            deleteProduct
         }
+    },
+    components: {
+        UpdateProduct,
+        AddProduct,
+        UpdateUser,
+        AddUser
     }
 }
 </script>

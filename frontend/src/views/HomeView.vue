@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <div class="home d-flex justify-content-around pt-1 row">
-      <div class="left col pe-5 pe-lg-0">
+      <div class="left col-12 pe-5 pe-lg-0 col-lg">
         <h2 class="display-6">Site Name</h2>
         <p class="lead text-start w-100">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
       </div>
@@ -10,36 +10,36 @@
       </div>
     </div>
 
-    <div id="carouselCategory" class="carousel slide" data-bs-ride="false">
+    <div id="carouselCategory" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselCategory" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselCategory" data-bs-slide-to="1" aria-label="Slide 2"></button>
     <button type="button" data-bs-target="#carouselCategory" data-bs-slide-to="2" aria-label="Slide 3"></button>
   </div>
   <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="../assets/coffeeBanner.jpg" class="d-block" alt="ALT">
+    <div class="carousel-item active" data-bs-interval="5000">
+      <img src="../assets/coffeeBanner.jpg" class="carouselImg d-block" alt="ALT">
       <div class="carousel-caption">
         <h5 class="display-6 fw-bold">Coffee</h5>
         <p class="lead">All your favorite coffee beverages ready to be ordered at the click of  button!</p>
-        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Coffee</router-link></button>
+        <button class="btn btn-dark"><router-link class="linkBtn" :to="{name:'productsCategory', params :{id:1}}">Coffee</router-link></button>
 
       </div>
     </div>
-    <div class="carousel-item">
-      <img src="../assets/pxfuel.jpg" class="d-block" alt="">
+    <div class="carousel-item" data-bs-interval="5000">
+      <img src="../assets/pxfuel.jpg" class="carouselImg d-block" alt="">
       <div class="carousel-caption ">
         <h5 class="display-6 fw-bold">Tea</h5>
         <p class="lead">Browse our range of imported and locally produced tea. We've got something for everyone!</p>
-        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Teas</router-link></button>
+        <button class="btn btn-dark"><router-link class="linkBtn" :to="{name:'productsCategory', params:{id:2}}">Teas</router-link></button>
       </div>
     </div>
-    <div class="carousel-item">
-      <img src="../assets/energyBanner.jpg" class="d-block" alt="">
+    <div class="carousel-item" data-bs-interval="5000">
+      <img src="../assets/energyBanner.jpg" class="carouselImg d-block" alt="">
       <div class="carousel-caption category">
         <h5 class="display-6 fw-bold">Energy Drinks</h5>
         <p class="lead">For those of you in need of serge of energy, we have a range of energy drinks that'll get you buzzing!</p>
-        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Energy Drinks</router-link></button>
+        <button class="btn btn-dark"><router-link class="linkBtn" :to="{name:'productsCategory', params: {id:3}}" >Energy Drinks</router-link></button>
 
       </div>
     </div>
@@ -53,25 +53,6 @@
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
-    <!-- <div class="productCatContainer row mt-1 d-flex justify-content-around">
-      <div class="category col-3">
-        <h2 class="display-6">Coffee</h2>
-        <img class="catImage mb-2" src="../assets/homepageimg.png" alt="Cat Image" width="150" height="150">
-        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Coffee Selection</router-link></button>
-      </div>
-      <div class="category col-3">
-        <h2 class="display-6">Tea</h2>
-        <img class="catImage mb-2" src="../assets/teadigitalart.png" alt="Cat Image" width="150" height="150">
-        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Tea Selection</router-link></button>
-      </div>
-      <div class="category col-3">
-        <h2 class="display-6">Energy Drinks</h2>
-        <img class="catImage mb-2" src="../assets/energydrinkdigitalart.png" alt="Cat Image" width="150" height="150">
-        <button class="btn btn-dark"><router-link class="linkBtn" to="/products">Energy Drink Selection</router-link></button>
-      </div>
-    </div> -->
-
   </div>
 </template>
 
@@ -111,6 +92,7 @@ export default {
   justify-content: center;
   align-items: start;
   padding: 0 0 0 3.5em;
+  width: 100%;
 }
 .right{
   /* border: 2px solid blue; */
@@ -145,10 +127,6 @@ export default {
   transition: all 0.25s ease 0s;
 }
 
-/* .category:hover{
-  scale: 1.025;
-  box-shadow: 10px 10px 10px #000;
-} */
 
 
 @keyframes roll {
@@ -187,9 +165,7 @@ export default {
 }
 .carousel-item img{
   height: 626px;
-  max-height: 626px;
-  width: 100%;
-  margin: 0 auto;
+  
 }
 #carouselCategory{
   width: 100%;
