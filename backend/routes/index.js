@@ -29,6 +29,8 @@ router.get('/products', controller.fetchProducts);
 
 router.get('/products/:id', controller.fetchProductById);
 
+router.get('/product/category/:id', controller.fetchProductByCatId)
+
 router.post('/products', bodyParser.json(), controller.createProduct);
 
 router.patch('/products/:id', bodyParser.json(), controller.updateProduct);

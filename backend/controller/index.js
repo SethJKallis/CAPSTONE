@@ -97,6 +97,14 @@ class control {
         })
     }
 
+    fetchProductByCatId(req,res){
+        const id = req.params.id;
+        productsModel.fetchProductByCatId(id, (err,results) => {
+            if(err)res.status(400).send({err});
+            else res.status(200).send({results});
+        })
+    }
+
     createProduct(req,res){
         const data = req.body;
         productsModel.createProduct(data, (err,results) => {

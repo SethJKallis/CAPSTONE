@@ -89,6 +89,13 @@ class products {
             else result(null,results);
         })
     }
+
+    fetchProductByCatId(id, result){
+        sql.query(`SELECT prodID, prodName, prodDescription, price, quantity, prodImg, catID, catName FROM products INNER JOIN category USING(catID) WHERE catID = ?;`, [id], (err,results) => {
+            if(err)result(err,null);
+            else result(null,results);
+        })
+    }
 }
 
 class category {
