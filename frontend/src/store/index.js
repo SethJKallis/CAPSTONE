@@ -9,9 +9,10 @@ export default createStore({
     users: null,
     product: null,
     products: null,
+    orders: null,
     category: null,
-    showSpinner: true,
-    message: null
+    message: null,
+    spinner:true
   },
   getters: {
   },
@@ -28,11 +29,17 @@ export default createStore({
     setProducts(state, products){
       state.products = products;
     },
+    setOrders(state, orders){
+      state.orders = orders;
+    },
     setCategory(state, category){
       state.category = category;
     },
     setMessage(state, message){
       state.message = message
+    },
+    setSpinner(state, spinner){
+      state.spinner = spinner
     }
 
   },
@@ -42,6 +49,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setUsers', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async fetchUserById(context, id){
@@ -49,6 +57,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setUsers', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async updateUser(context, payload){
@@ -56,6 +65,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async register(context, payload){
@@ -63,6 +73,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async login(context, payload){
@@ -71,6 +82,7 @@ export default createStore({
       if(result){
         console.log(result[0])
         context.commit('setUser', result[0]);
+        context.commit('setSpinner', false);
       } else {
         context.commit('setMessage', err);
       }
@@ -80,6 +92,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
 
@@ -88,6 +101,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setProducts', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     }, 
     async fetchProductById(context, id){
@@ -95,12 +109,16 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setProduct', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async fetchProductByCatId(context, id){
       const res = await axios.get(`${renderLink}/product/category/${id}`);
       const {results ,err} = await res.data;
-      if(results)context.commit('setProducts', results);
+      if(results){
+        context.commit('setProducts', results);
+        context.commit('setSpinner', false);
+      }
       else context.commit('setMessage', err);
     },
     async updateProduct(context, payload){
@@ -108,6 +126,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async addProduct(context, payload){
@@ -115,6 +134,7 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async deleteProduct(context, id){
@@ -122,6 +142,15 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
+        context.commit('setSpinner', false);
+      } else context.commit('setMessage', err);
+    },
+    async fetchUserOrders(context, id){
+      const res = await axios.get(`${renderLink}/orders/${id}`);
+      const {err,results} = await res.data;
+      if(results){
+        context.commit('setOrders', results);
+        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     }
   },
