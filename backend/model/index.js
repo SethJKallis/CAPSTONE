@@ -144,7 +144,7 @@ class orders {
     }
 
     fetchOrderByUserId(id, result){
-        sql.query(`SELECT orderId, prodId, userID FROM orders WHERE userID = ?`, [id], (err,results) => {
+        sql.query(`SELECT orderID, prodID, userID, firstName, lastName,prodName, COUNT(prodName) as quantity, SUM(price) as total, price as singleItem FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE catID = 1 GROUP BY prodName;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
