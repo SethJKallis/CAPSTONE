@@ -1,5 +1,34 @@
 <template>
-    <div class="checkout">
+    <div v-if="spinner" class="checkout d-flex justify-content-center align-content-center">
+        <SpinnerComponent/>
+    </div>
+    <div v-if="orderValues < 1 || orderValues == undefined && !spinner" class="checkout-spinner">
+    <div class="spinner">
+        <span>T</span>
+
+        <span>R</span>
+        <span>Y</span>
+        <span>&nbsp;</span>
+        <span>A</span>
+        <span>D</span>
+        <span>D</span>
+        <span>I</span>
+        <span>N</span>
+        <span>G</span>
+        <span>&nbsp;</span>
+        <span>S</span>
+        <span>O</span>
+        <span>M</span>
+        <span>E</span>
+        <span>T</span>
+        <span>H</span>
+        <span>I</span>
+        <span>N</span>
+        <span>G</span>
+        <span>!</span>
+    </div>
+    </div>
+    <div v-else-if="orderValues > 1 || orderValues == undefined && !spinner" class="checkout">
         <h2 class="display-5 fw-bold">Checkout</h2>
         <table class="table table-dark table-hover table-striped">
             <thead>
@@ -35,7 +64,6 @@
                 </tr>
             </tfoot>
         </table>
-
         <button class="btn btn-dark">PURCHASE</button>
     </div>
 </template>
@@ -43,35 +71,64 @@
 <script>
 import {useStore} from 'vuex';
 import {computed} from '@vue/runtime-core';
+import { ref } from 'vue';
+
+import SpinnerComponent from '../components/SpinnerComponent.vue'
 
 export default{
     setup(){
         const store = useStore();
+        let spinner = ref(false);
+        let orderCheck = ref(false);
+
+        
         const userLoggedIn =JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
-        store.dispatch('fetchUserOrders', user.userID);
+        
+        
+        async function orderSetter(){
+            await orderCheck;
+            spinner.value = !spinner.value
+            let user = await  userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
 
+            if(await store.dispatch('fetchUserOrders', user.userID)){
+                console.log('yes')
+            } else {
+                console.log('no')
+            }
+            spinner.value = !spinner.value 
+        }
+        orderSetter();
+        
+        store.dispatch('fetchUserOrders', user.userID);
+        let orders = computed( () => store.state.orders);
+        
         let ordersTotal = () => {
             store.dispatch('fetchUserOrders', user.userID)
+
             let orders = computed(() => store.state.orders);
             orders = orders.value;
+
             let itemsTotal = 0;
             try{
                 orders.forEach((item) => {
                     itemsTotal += parseInt(item.total)
                 });
             }catch(err){
-                console.log('Error Caught by Catch Block! forEach reads null due to async actions. However, functions dynamically calculates Total Price once order data is retrieved');
+                console.log('Error');
             }
             return itemsTotal
         }
 
-        let orders = computed(() => store.state.orders);
         return{
             user,
             orders,
-            ordersTotal
+            ordersTotal,
+            spinner
         }
+    },
+    components:{
+        SpinnerComponent
     }
 }
 </script>
@@ -82,8 +139,111 @@ export default{
     padding: 5rem 0 4rem 0;
     min-height: 100vh;
 }
+.checkout-spinner{
+    background-color: #155263;
+    padding: 5rem 0 4rem 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 h2{
     color: #ff9a3c;
 }
+.spinner {
+ height: 100%;
+ width: 100%;
+ margin: 0;
+ padding: 0;
+ font-size: 3vw;
 
+ font-weight: 600;
+ font-family: monospace;
+ letter-spacing: 0.5em;
+ color: #f5f5f5;
+ filter: drop-shadow(0 0 10px);
+ display: flex;
+ justify-content: center;
+ align-items: center;
+}
+
+.spinner span {
+ animation: loading6454 1.75s ease infinite;
+}
+
+.spinner span:nth-child(2) {
+ animation-delay: 0.25s;
+}
+
+.spinner span:nth-child(3) {
+ animation-delay: 0.5s;
+}
+
+.spinner span:nth-child(4) {
+ animation-delay: 0.75s;
+}
+
+.spinner span:nth-child(5) {
+ animation-delay: 1s;
+}
+
+.spinner span:nth-child(6) {
+ animation-delay: 1.25s;
+}
+
+.spinner span:nth-child(7) {
+ animation-delay: 1.5s;
+}
+.spinner span:nth-child(8) {
+ animation-delay: 1.75s;
+}
+.spinner span:nth-child(9) {
+ animation-delay: 2s;
+}
+.spinner span:nth-child(10) {
+ animation-delay: 2.25s;
+}
+.spinner span:nth-child(11) {
+ animation-delay: 2.5s;
+}
+.spinner span:nth-child(12) {
+ animation-delay: 2.75s;
+}
+.spinner span:nth-child(13) {
+ animation-delay: 3s;
+}
+.spinner span:nth-child(14) {
+ animation-delay: 3.25s;
+}
+.spinner span:nth-child(15) {
+ animation-delay: 3.5s;
+}
+.spinner span:nth-child(16) {
+ animation-delay: 3.75s;
+}
+.spinner span:nth-child(17) {
+ animation-delay: 4s;
+}
+.spinner span:nth-child(18) {
+ animation-delay: 4.25s;
+}
+.spinner span:nth-child(19) {
+ animation-delay: 4.5s;
+}
+.spinner span:nth-child(20) {
+ animation-delay: 4.75s;
+}
+.spinner span:nth-child(21) {
+ animation-delay: 5s;
+}
+
+@keyframes loading6454 {
+ 0%, 100% {
+  transform: translateY(0);
+ }
+
+ 50% {
+  transform: translateY(-10px);
+ }
+}
 </style>

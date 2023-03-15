@@ -92,7 +92,6 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setMessage', results);
-        context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
 

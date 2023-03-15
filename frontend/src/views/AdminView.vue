@@ -1,6 +1,9 @@
 <template>
-    <div class="admin">
-        <div class="productsTable">
+    <div v-if="spinner" class="admin d-flex justify-content-center">
+        <SpinnerComponent/>
+    </div>
+    <div v-else-if="!spinner" class="admin">
+        <div class="productsTable"> 
             <h2 class="display-5 fw-bold">Products Table</h2>
             <table class="table table-hover table-striped table-dark mx-auto">
                 <thead>
@@ -69,6 +72,7 @@ import UpdateProduct from '../components/UpdateProduct.vue';
 import AddProduct from '../components/AddProduct.vue';
 import UpdateUser from '../components/UpdateUser.vue';
 import AddUser from '../components/AddUser.vue';
+import SpinnerComponent from '../components/SpinnerComponent.vue';
 
 export default{
     setup(){
@@ -78,6 +82,7 @@ export default{
 
         const users = computed(() => store.state.users);
         const products = computed(() => store.state.products);
+        
         const userLoggedIn =JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
 
@@ -86,19 +91,22 @@ export default{
             await store.dispatch('deleteProduct', product.prodID);
             await store.dispatch('fetchProducts');
         }
+        const spinner = computed(() => store.state.spinner);
         return{
             user,
             users,
             userLoggedIn,
             products,
-            deleteProduct
+            deleteProduct,
+            spinner
         }
     },
     components: {
         UpdateProduct,
         AddProduct,
         UpdateUser,
-        AddUser
+        AddUser,
+        SpinnerComponent
     }
 }
 </script>

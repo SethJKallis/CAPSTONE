@@ -44,7 +44,7 @@ export default{
     const user = computed(() => store.state.user);
 
     return{
-      user
+      user,
     }
   },
   components: {
