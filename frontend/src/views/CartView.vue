@@ -2,10 +2,9 @@
     <div v-if="spinner" class="checkout d-flex justify-content-center align-content-center">
         <SpinnerComponent/>
     </div>
-    <div v-if="orderValues < 1 || orderValues == undefined && !spinner" class="checkout-spinner">
+    <div v-if="!spinner && !orderCheck" class="checkout-spinner">
     <div class="spinner">
         <span>T</span>
-
         <span>R</span>
         <span>Y</span>
         <span>&nbsp;</span>
@@ -28,7 +27,7 @@
         <span>!</span>
     </div>
     </div>
-    <div v-else-if="orderValues > 1 || orderValues == undefined && !spinner" class="checkout">
+    <div v-else-if="!spinner && orderCheck" class="checkout">
         <h2 class="display-5 fw-bold">Checkout</h2>
         <table class="table table-dark table-hover table-striped">
             <thead>
@@ -87,16 +86,26 @@ export default{
         
         
         async function orderSetter(){
-            await orderCheck;
             spinner.value = !spinner.value
             let user = await  userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
+            
+            await store.dispatch('fetchUserOrders', user.userID)
+            let orderValues = computed(() => store.state.orders); 
 
-            if(await store.dispatch('fetchUserOrders', user.userID)){
-                console.log('yes')
+            if(await orderValues.value.length == 0){
+                console.log(orderValues.value.length)
+                localStorage.setItem('userOrders', JSON.stringify(null))
             } else {
-                console.log('no')
+                console.log(orderValues.value.length)
+                localStorage.setItem('userOrders', JSON.stringify(orderValues.value))
             }
-            spinner.value = !spinner.value 
+
+            if(await JSON.parse(localStorage.getItem('userOrders')) == null){
+                spinner.value = !spinner.value
+            } else {
+                spinner.value=!spinner.value;
+                orderCheck.value=!orderCheck.value
+            }
         }
         orderSetter();
         
@@ -105,10 +114,8 @@ export default{
         
         let ordersTotal = () => {
             store.dispatch('fetchUserOrders', user.userID)
-
             let orders = computed(() => store.state.orders);
             orders = orders.value;
-
             let itemsTotal = 0;
             try{
                 orders.forEach((item) => {
@@ -124,6 +131,7 @@ export default{
             user,
             orders,
             ordersTotal,
+            orderCheck,
             spinner
         }
     },

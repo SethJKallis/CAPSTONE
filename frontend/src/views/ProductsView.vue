@@ -20,7 +20,9 @@
 <div class="productsContainer row d-flex justify-content-center align-content-center g-0">
     <div v-for="product in products" :key="product" class="productContainer g-0 col-6 col-md-4 col-lg-3 mx-2 my-2">
         <h2 class="display-6 fw-bold">{{ product.prodName }}</h2>
-        <img class="prodImage mb-2" :src="product.prodImg" :alt="product.prodName">
+        <a v-on:click="storeProdID(product)" :href="$router.resolve({name:'product'}).href">
+            <img class="prodImage mb-2" :src="product.prodImg" :alt="product.prodName">
+        </a>
         <p class="lead">{{ product.prodDescription }}</p>
         <p class="lead fw-bold fs-2">R{{ product.price }}</p>
         <button class="addBtn btn btn-dark">Add to Cart</button>
@@ -33,7 +35,8 @@
 <script>
 import { useStore } from 'vuex';
 import {computed} from '@vue/runtime-core';
-import SpinnerComponent from '../components/SpinnerComponent.vue'
+import SpinnerComponent from '../components/SpinnerComponent.vue';
+
 export default{
     setup(){
         const store = useStore();
@@ -54,15 +57,21 @@ export default{
         const products = computed(() => store.state.products);
         const spinner = computed(() => store.state.spinner);
    
+        function storeProdID(product){
+            localStorage.setItem('prodID', product.prodID);
+        }
+
         return{
             user,
             products,
-            spinner 
+            spinner,
+            storeProdID
         }
     },
     components:{
         SpinnerComponent
     },
+
 
 }
 </script>

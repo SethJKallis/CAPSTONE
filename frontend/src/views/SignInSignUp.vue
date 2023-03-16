@@ -61,9 +61,11 @@ import {useRouter} from 'vue-router';
 export default{
     setup(){
         const store = useStore();
-        const router = useRouter()
+        const router = useRouter();
+
         let spinner = ref(false);
         let signIn = ref(true);
+
         const userLoggedIn =JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
         
@@ -77,6 +79,7 @@ export default{
             "userEmail":'',
             "userPass":''
         }
+        
         async function userSignIn(signInPayload){
             spinner.value = !spinner.value;
             await store.dispatch('login', signInPayload);
@@ -87,7 +90,8 @@ export default{
         }
 
         async function userSignUp(signUpPayload){
-            spinner.value = !spinner.value;            await store.dispatch('register', signUpPayload);
+            spinner.value = !spinner.value;
+            await store.dispatch('register', signUpPayload);
             let tempPayload = {
                 "userEmail":signUpPayload.userEmail,
                 "userPass":signUpPayload.userPass
@@ -97,6 +101,7 @@ export default{
             router.push({name:'home', path:'/'}).then(() => location.reload())
             spinner.value = !spinner.value;
         }
+
         function changeSign(){
             signIn.value = !signIn.value
         }
