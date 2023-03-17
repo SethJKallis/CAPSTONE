@@ -151,6 +151,15 @@ export default createStore({
         context.commit('setOrders', results);
         context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
+    },
+    async addOrder(context, payload){
+      const res = await axios.post(`${renderLink}/orders`, payload);
+      const {err,results} = await res.data;
+      if(results){
+        context.commit('setMessage', results);
+      } else {
+        context.commit('setMessage', err);
+      }
     }
   },
   modules: {

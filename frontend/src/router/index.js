@@ -8,20 +8,29 @@ import ProductsView from '../views/ProductsView.vue'
 import SingleProductView from '../views/SingleProduct.vue'
 import UserProfile from '../views/UserProfileView.vue'
 import CartView from '../views/CartView.vue'
+// import store from '@/store'
+
+const userLoggedIn = JSON.parse(localStorage.getItem('user'));
+let user = userLoggedIn == null || userLoggedIn == undefined ? null : userLoggedIn;
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
   },
   {
     path:'/about',
     name:'about',
-    component:AboutView
+    component:AboutView,
   },
   {
     path: '/admin',
+    beforeEnter(){
+      if(user == null){
+        router.push({name:'sign'})
+      } else return
+    },
     name: 'admin',
     component:AdminView
   },
@@ -32,6 +41,11 @@ const routes = [
   },
   {
     path:'/contact',
+    beforeEnter(){
+      if(user == null){
+        router.push({name:'sign'})
+      } else return
+    },
     name:'contact',
     component:ContactView
   },
@@ -47,16 +61,31 @@ const routes = [
   },
   {
     path:'/product',
+    beforeEnter(){
+      if(user == null){
+        router.push({name:'sign'})
+      } else return
+    },
     name: 'product',
     component:SingleProductView
   },
   {
     path: '/user',
+    beforeEnter(){
+      if(user == null){
+        router.push({name:'sign'})
+      } else return
+    },
     name: 'user',
     component:UserProfile
   },
   {
     path:'/user/cart',
+    beforeEnter(){
+      if(user == null){
+        router.push({name:'sign'})
+      } else return
+    },
     name:'cart',
     component:CartView
   }
