@@ -137,14 +137,14 @@ class category {
 
 class orders {
     fetchOrders(result){
-        sql.query(`SELECT orderID, prodID, userID, quantity FROM orders;`, (err,results) => {
+        sql.query(`SELECT orderID, prodID, userID FROM orders;`, (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
     }
 
     fetchOrderByUserId(id, result){
-        sql.query(`SELECT orderID, prodID, userID, firstName, lastName, prodName, quantity, (quantity*price) as totalPrice FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE userID = ? GROUP BY prodName;`, [id], (err,results) => {
+        sql.query(`SELECT orderID, prodID, userID, firstName, lastName, prodName, COUNT(prodName) as quantity, SUM(price) as total, price as singleItem FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE userID = ? GROUP BY prodName;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
@@ -158,14 +158,14 @@ class orders {
     }
 
     updateOrder(data, id, result){
-        sql.query(`UPDATE orders SET ? WHERE userID = ?;`, [data, id], (err,results) => {
+        sql.query(`UPDATE orders SET ? WHERE orderID = ?;`, [data, id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
     }
 
     deleteOrder(id, result){
-        sql.query(`DELETE FROM orders WHERE orderID = ?;`, [id], (err,results) => {
+        sql.query(`DELETE FROM orders WHERE userID = ?;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
