@@ -43,7 +43,7 @@
                 <td>{{ order.prodName }}</td>
                 <td>{{ order.quantity }}</td>
                 <td>R{{ order.total }}</td>
-                <td><button class="removeBtn btn btn-danger">DEL</button></td>
+                <td><button class="removeBtn btn btn-danger" v-on:click="removeOrder(user)">DEL</button></td>
                 </tr>
             </tbody>
             <tfoot>
@@ -93,18 +93,18 @@ export default{
             let orderValues = computed(() => store.state.orders); 
 
             if(await orderValues.value.length == 0){
-                console.log(orderValues.value.length)
                 localStorage.setItem('userOrders', JSON.stringify(null))
             } else {
-                console.log(orderValues.value.length)
                 localStorage.setItem('userOrders', JSON.stringify(orderValues.value))
             }
 
             if(await JSON.parse(localStorage.getItem('userOrders')) == null){
                 spinner.value = !spinner.value
+                return
             } else {
                 spinner.value=!spinner.value;
                 orderCheck.value=!orderCheck.value
+                return
             }
         }
         orderSetter();
@@ -119,7 +119,7 @@ export default{
             let itemsTotal = 0;
             try{
                 orders.forEach((item) => {
-                    itemsTotal += parseInt(item.total)
+                    itemsTotal += parseInt(item.totalPrice)
                 });
             }catch(err){
                 console.log('Error');
@@ -127,11 +127,17 @@ export default{
             return itemsTotal
         }
 
+        function removeOrder(user){
+            store.dispatch('deleteOrder', user.userID);
+            store.dispatch('fetchUserOrders', user.userID);
+        }
+
         return{
             user,
             orders,
             ordersTotal,
             orderCheck,
+            removeOrder,
             spinner
         }
     },

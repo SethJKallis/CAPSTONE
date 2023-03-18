@@ -27,7 +27,21 @@
         </a>
         <p class="lead">{{ product.prodDescription }}</p>
         <p class="lead fw-bold fs-2">R{{ product.price }}</p>
-        <button class="addBtn btn btn-dark" v-on:click="addToCart(product, user)">Add to Cart</button>
+        <div class="btnCOntainer d-flex flex-column justify-content-center align-content-center">
+            <button class="addBtn btn btn-dark" v-on:click="addToCart(product, user)">Add to Cart</button>
+            <select :name="'quantity'+product.prodID" :id="'quantity'+product.prodID" class="btn btn-dark mt-1 w-50 mx-auto">
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+        </div>
     </div>
 </div>
 
@@ -74,16 +88,22 @@ export default{
             document.body.appendChild(createdElement);
         }
 
-        function addToCart(product, user){
+        async function addToCart(product, user){
             let { prodID } = product;
             let { userID } = user;
             let orderPayload = {
                 userID: userID,
-                prodID: prodID
+                prodID: prodID,
+                quantity: parseInt(document.querySelector(`#quantity${prodID}`).value)
             };
-            console.log(orderPayload)
-            store.dispatch('addOrder', orderPayload);
-            tempAlert('Product Added!', 1000)
+            console.log(orderPayload);
+
+            await store.dispatch('addOrder', orderPayload);
+
+            let message = computed(() => store.state.message)
+
+            tempAlert(await message.value, 1000)
+
         }
 
         return{

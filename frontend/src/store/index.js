@@ -153,12 +153,35 @@ export default createStore({
       } else context.commit('setMessage', err);
     },
     async addOrder(context, payload){
-      const res = await axios.post(`${renderLink}/orders`, payload);
+      const orders = await axios.get(`${renderLink}/orders`);
+      let {results} = await orders.data;
+      let sortedArray = await results.find(function(item){
+        return item.userID == payload.userID && item.prodID == payload.prodID 
+      })
+      if(sortedArray !==null && sortedArray !==undefined && sortedArray.userID == payload.userID && sortedArray.prodID == payload.prodID){
+        let message = "Product Has Already Been Added!"
+        context.commit('setMessage', message);
+      } else {
+        const res = await axios.post(`${renderLink}/orders`, payload);
+        const {err,results} = await res.data;
+        if(results){
+          let message = 'Product Added!'
+            context.commit('setMessage', message);
+          } else {
+            context.commit('setMessage', err);
+          }
+      }
+    },
+    async deleteOrder(context, id){
+      const res = await axios.delete(`${renderLink}/orders/${id}`);
       const {err,results} = await res.data;
+      console.log(id)
       if(results){
+        console.log(results)
         context.commit('setMessage', results);
       } else {
-        context.commit('setMessage', err);
+        console.log(err)
+        context.commit('setMessage', err)
       }
     }
   },
