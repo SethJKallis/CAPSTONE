@@ -8,24 +8,30 @@
             <table class="table table-hover table-striped table-dark mx-auto">
                 <thead>
                     <tr>
+                        <th class="lead d-none d-sm-table-cell fw-bold">Image</th>
                         <th class="lead fw-bold">Name</th>
                         <th class="d-none d-sm-table-cell lead fw-bold">Description</th>
                         <th class="lead fw-bold">Price</th>
-                        <th class="lead fw-bold">Quantity</th>
-                        <th class="lead d-none d-sm-table-cell fw-bold">Image</th>
-                        <th class="lead fw-bold">Edit/Del</th>
+                        <th class="lead fw-bold ps-5">Edit/Del</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="product in products" :key="product">
+                        <td class="d-none d-sm-table-cell p-0">
+                            <figure>
+                                <img :src="product.prodImg" :alt="product.prodName" width="85" height="75">
+                                <figcaption class="idDisplay">{{ product.prodID }}</figcaption>
+                            </figure>
+                        </td>
+
                         <td>{{ product.prodName }}</td>
                         <td class="d-none d-sm-table-cell">{{ product.prodDescription }}</td>
                         <td>R{{ product.price }}</td>
-                        <td>{{ product.quantity }}</td>
-                        <td class="d-none d-sm-table-cell"><img :src="product.prodImg" :alt="product.prodName" width="85" height="75"></td>
-                        <td>
-                                <UpdateProduct :product="product" class="btn btn-dark"/>
-                                <button class="btn btn-danger" v-on:click="deleteProduct(product)">Del</button>
+                        <td class="d-flex" height="92">
+                                <UpdateProduct :product="product"/>
+                                <button class="btn btn-danger h-50" v-on:click="deleteProduct(product)"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+</svg></button>
                         </td>
                     </tr>
                 </tbody>
@@ -38,24 +44,28 @@
             <table class="table table-hover table-striped table-dark mx-auto">
                 <thead>
                     <tr>
+                        <th class="lead d-none d-sm-table-cell fw-bold">Profile Image</th>
                         <th class="lead fw-bold">Name</th>
                         <th class="lead fw-bold">Email Address</th>
                         <th class="lead fw-bold">Role</th>
                         <th class="lead d-none d-sm-table-cell fw-bold">Join Date</th>
-                        <th class="lead d-none d-sm-table-cell fw-bold">Profile Image</th>
                         <th class="lead fw-bold">Edit/Del</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="user in users" :key="user">
+                        <td class="d-none d-sm-table-cell"><img class="rounded-circle" :src="user.userProfile" :alt="user.firstName + ' ' + user.lastName" width="85" height="75"></td>
                         <td>{{ user.firstName }} {{ user.lastName }}</td>
                         <td>{{ user.userEmail }}</td>
                         <td>{{ user.userRole }}</td>
                         <td class="d-none d-sm-table-cell">{{ user.joinDate }}</td>
-                        <td class="d-none d-sm-table-cell"><img class="rounded-circle" :src="user.userProfile" :alt="user.firstName + ' ' + user.lastName" width="85" height="75"></td>
                         <td>
                                 <UpdateUser :userDetails="user" class="btn btn-dark"/>
-                                <button class="btn btn-danger">Del</button>
+                                <button class="btn btn-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+</svg>
+                                </button>
                         </td>
                     </tr>
                 </tbody>
@@ -125,5 +135,19 @@ export default{
 table{
     width: 95%;
     min-width: 100px;
+}
+figure{
+    position: relative;
+    width: 100%;
+}
+.idDisplay{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0000006b;
 }
 </style>

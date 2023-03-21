@@ -172,16 +172,19 @@ export default createStore({
           }
       }
     },
-    async deleteOrder(context, payload){
-      console.log(payload)
-      const res = await axios.delete(`${renderLink}/orders/${payload.userID}/${payload.prodID}`);
-      console.log(res);
+    async updateOrder(context, payload){
+      const res = await axios.put(`${renderLink}/orders/${payload.orderID}`, payload);
       const {err,results} = await res.data;
       if(results){
-        console.log(results)
+        context.commit('setMessage', results);
+      } else context.commit('setMessage', err)
+    },
+    async deleteOrder(context, id){
+      const res = await axios.delete(`${renderLink}/orders/${id}`);
+      const {err,results} = await res.data;
+      if(results){
         context.commit('setMessage', results);
       } else {
-        console.log(err)
         context.commit('setMessage', err)
       }
     }
