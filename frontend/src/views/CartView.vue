@@ -27,7 +27,7 @@
         <span>!</span>
     </div>
     </div>
-    <div v-else-if="!spinner && orderCheck" class="checkout">
+    <div class="checkout" v-else-if="!spinner && orderCheck">
         <h2 class="display-5 fw-bold">Checkout</h2>
         <table class="table table-dark table-hover table-striped">
             <thead>
@@ -43,7 +43,7 @@
                 <td>{{ order.prodName }}</td>
                 <td>{{ order.quantity }}</td>
                 <td>R{{ order.total }}</td>
-                <td><button class="removeBtn btn btn-danger" v-on:click="removeOrder(user)">DEL</button></td>
+                <td><button class="removeBtn btn btn-danger" v-on:click="removeOrder(order)">DEL</button></td>
                 </tr>
             </tbody>
             <tfoot>
@@ -58,7 +58,7 @@
                     <td class="bg-transparent"></td>
                     <td class="bg-transparent"></td>
                     <td class="totalData">
-                        R{{ ordersTotal() }}
+                        R{{ ordersTotal(orders) }}
                     </td>
                 </tr>
             </tfoot>
@@ -84,6 +84,8 @@ export default{
         const userLoggedIn =JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
         
+        store.dispatch('fetchUserOrders', user.userID);
+        let orders = computed( () => store.state.orders);
         
         async function orderSetter(){
             spinner.value = !spinner.value
@@ -107,29 +109,29 @@ export default{
                 return
             }
         }
-        orderSetter();
+            orderSetter()
+      
         
-        store.dispatch('fetchUserOrders', user.userID);
-        let orders = computed( () => store.state.orders);
         
-        let ordersTotal = () => {
-            store.dispatch('fetchUserOrders', user.userID)
-            let orders = computed(() => store.state.orders);
-            orders = orders.value;
+        let ordersTotal = (orders) => {
             let itemsTotal = 0;
             try{
                 orders.forEach((item) => {
-                    itemsTotal += parseInt(item.totalPrice)
+                    itemsTotal += parseInt(item.total)
                 });
             }catch(err){
-                console.log('Error');
+                console.warn(err);
             }
             return itemsTotal
         }
 
-        function removeOrder(user){
-            store.dispatch('deleteOrder', user.userID);
-            store.dispatch('fetchUserOrders', user.userID);
+        function removeOrder(order){
+            let delPayload = {
+                userID: order.userID,
+                prodID: order.prodID
+            }
+            store.dispatch('deleteOrder', delPayload);
+            location.reload();
         }
 
         return{

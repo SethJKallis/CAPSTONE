@@ -164,7 +164,7 @@ export default {
   height: 100%;
 }
 .carousel-item img{
-  height: 626px;
+  height: 630px;
   
 }
 #carouselCategory{
