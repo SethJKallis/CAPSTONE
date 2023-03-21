@@ -164,8 +164,8 @@ class orders {
         })
     }
 
-    deleteOrder(id1, id2, result){
-        sql.query(`DELETE FROM orders WHERE prodID=? AND userID=?;`, [id2, id1], (err,results) => {
+    deleteOrder(id, result){
+        sql.query(`DELETE FROM orders WHERE orderID = ?;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })

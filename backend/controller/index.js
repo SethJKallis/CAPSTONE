@@ -165,9 +165,8 @@ class control {
     }
 
     deleteOrder(req,res){
-        const id1 = req.params.id1;
-        const id2 = req.params.id2;
-        ordersModel.deleteOrder(id1, id2, (err,results) => {
+        const id = req.params.id;
+        ordersModel.deleteOrder(id, (err,results) => {
             if(err) res.status(400).send({err});
             else res.status(200).send({results});
         })
