@@ -50,7 +50,7 @@ router.patch('/orders/:id', bodyParser.json(), controller.updateOrder);
 
 router.put('/orders/:id', bodyParser.json(), controller.updateOrder);
 
-router.delete('/orders/:id', controller.deleteOrder);
+router.delete('/orders/:id1/:id2', controller.deleteOrder);
 
 //CATEGORIES
 router.get('/category', controller.fetchCategory);

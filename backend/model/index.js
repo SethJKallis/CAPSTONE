@@ -144,7 +144,7 @@ class orders {
     }
 
     fetchOrderByUserId(id, result){
-        sql.query(`SELECT orderID, prodID, userID, firstName, lastName, prodName, COUNT(prodName) as quantity, SUM(price) as total, price as singleItem FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE userID = ? GROUP BY prodName;`, [id], (err,results) => {
+        sql.query(`SELECT orderID, prodID, userID, firstName, lastName, prodName, quantity, (price*quantity) as total, price as singleItem FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE userID = ? GROUP BY prodName;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
@@ -164,8 +164,8 @@ class orders {
         })
     }
 
-    deleteOrder(id, result){
-        sql.query(`DELETE FROM orders WHERE userID = ?;`, [id], (err,results) => {
+    deleteOrder(id1, id2, result){
+        sql.query(`DELETE FROM orders WHERE prodID=? AND userID=?;`, [id2, id1], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
