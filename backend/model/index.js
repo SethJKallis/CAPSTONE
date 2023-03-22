@@ -3,14 +3,14 @@ const bcrypt = require('bcrypt');
 
 class users {
     fetchUsers(result){
-        sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate FROM users;`, (err,results) => {
+        sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate, address FROM users;`, (err,results) => {
             if(err) result(err, null);
             else result(null, results);
         })
     }
 
     fetchUserById(id, result){
-        sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate FROM users WHERE userID = ?;`, [id], (err,results) => {
+        sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate, address FROM users WHERE userID = ?;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })
@@ -41,13 +41,16 @@ class users {
 
     login(data, result){
         const {userEmail, userPass} = data;
-        sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate FROM users WHERE userEmail = ?;`, [userEmail], async (err,results) => {
+        sql.query(`SELECT userID, firstName, lastName, userEmail, userPass, userRole, userProfile, joinDate, address FROM users WHERE userEmail = ?;`, [userEmail], async (err,results) => {
             const userInformation = results;
             if(err) result(err,null);
+            else if(results[0] == undefined || results[0] == null){
+                result({message:'User Not Found'}, null)
+            }
             else {
                 await bcrypt.compare(userPass, results[0].userPass, (err,results) => {
-                    if(err) result({err,msg:"incorrect credentials"},null);
-                    else result(null, (results, userInformation))
+                    if(!results) result({err,msg:"incorrect credentials"},null);
+                    else if(results) result(null, (results, userInformation))
                 })
             }
         })
@@ -144,7 +147,7 @@ class orders {
     }
 
     fetchOrderByUserId(id, result){
-        sql.query(`SELECT orderID, prodID, userID, firstName, lastName, prodName, quantity, (price*quantity) as total, price as singleItem FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE userID = ? GROUP BY prodName;`, [id], (err,results) => {
+        sql.query(`SELECT orderID, prodID, userID, firstName, lastName, prodName, quantity, (price*quantity) as total, price as singleItem, address FROM orders INNER JOIN users USING (userID) INNER JOIN products USING (prodID) WHERE userID = ? GROUP BY prodName;`, [id], (err,results) => {
             if(err) result(err,null);
             else result(null,results);
         })

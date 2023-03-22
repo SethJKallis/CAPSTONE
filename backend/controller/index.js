@@ -61,8 +61,9 @@ class control {
         const data = req.body;
         const {userEmail, userPass} = data;
         usersModel.login(data, (err,results) => {
-            if(err) res.status(400).send({err});
-            else {
+            if(err){
+                res.send({err});
+            } else {
                 const jwt = createWebToken(
                     {
                         userEmail, userPass
