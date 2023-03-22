@@ -70,7 +70,6 @@ setup(){
                 userRole:payloadTemp.userRole,
                 address:payloadTemp.address
             }
-            console.log(await payload.userRole);
             if(payload.firstName == '')payload.firstName = user.firstName;
             if(payload.lastName == '')payload.lastName = user.lastName;
             if(payload.userEmail == '')alert('Please Enter your email address!');
@@ -83,7 +82,6 @@ setup(){
             admin
             user
             `)
-            console.log(payload)
             return payload;
         }
 

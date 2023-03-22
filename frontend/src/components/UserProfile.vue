@@ -75,7 +75,6 @@ export default{
                 localStorage.removeItem('user');
                 router.push({name:'home', path:'/'}).then(() => location.reload())
             } else if(doubleCheck !== null && doubleCheck.toLowerCase() == 'n') {
-                console.log('No')
                 return
             } else {
                 alert('Please enter a valid response!')

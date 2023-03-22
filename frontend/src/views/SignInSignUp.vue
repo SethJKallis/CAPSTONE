@@ -93,7 +93,6 @@ export default{
             await store.dispatch('login', signInPayload);
             localStorage.setItem('user',JSON.stringify(store.state.user))
             if(await JSON.parse(localStorage.getItem('user')) == undefined || await JSON.parse(localStorage.getItem('user')) == null ){
-                console.log('undefined')
                 spinner.value = !spinner.value;
                 alert('USER DOES NOT EXIST! PLEASE CHECK YOUR EMAIL AND PASSWORD!')
                 return
@@ -118,7 +117,6 @@ export default{
             await store.dispatch('login', tempPayload);
             localStorage.setItem('user', JSON.stringify(store.state.user));
             if(await JSON.parse(localStorage.getItem('user')) == undefined || await JSON.parse(localStorage.getItem('user')) == null ){
-                console.log('undefined')
                 spinner.value = !spinner.value;
                 alert('USER DOES NOT EXIST! PLEASE CHECK YOUR EMAIL AND PASSWORD!')
                 return

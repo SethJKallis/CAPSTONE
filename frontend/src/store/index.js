@@ -77,14 +77,9 @@ export default createStore({
       } else context.commit('setMessage', err);
     },
     async login(context, payload){
-      console.log(payload)
       const res = await axios.post(`${renderLink}/login`, payload);
       const {err, result} = await res.data;
-      console.log(res)
-      console.log(result)
-      console.log(err)
       if(result !== undefined && result !== null){
-        console.log(result[0])
         context.commit('setUser', result[0]);
         context.commit('setSpinner', false);
       } else {
