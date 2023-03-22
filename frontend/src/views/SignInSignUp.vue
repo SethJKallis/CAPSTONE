@@ -19,10 +19,12 @@
             <input class="form-control w-50 mx-auto mb-2" type="text" name="firstName" id="firstName" required placeholder="Enter Your First Name..." v-model="signUpPayload.firstName">
             <label class="mt-3 lead" for="lastName">Last Name</label>
             <input class="form-control w-50 mx-auto mb-2" type="text" name="lastName" id="lastName" required placeholder="Enter Your Last Name..." v-model="signUpPayload.lastName">
+            <label class="mt-3 lead" for="lastName">Delivery Address</label>
+            <input class="form-control w-50 mx-auto mb-2" type="text" name="address" id="address" required placeholder="Enter A Delivery Address..." v-model="signUpPayload.address">
             <label class="mt-3 lead" for="email">Email Address</label>
-            <input class="form-control w-50 mx-auto mb-2" type="email" name="email" id="email" placeholder="Enter Your Email Address..." v-model="signUpPayload.userEmail">
+            <input class="form-control w-50 mx-auto mb-2" type="email" name="email" id="email" required placeholder="Enter Your Email Address..." v-model="signUpPayload.userEmail">
             <label class="mt-3 lead" for="userPass">Password</label>
-            <input class="form-control w-50 mx-auto mb-2" type="password" name="userPass" id="userPass" required placeholder="Enter Your Password..." v-model="signUpPayload.userPass">
+            <input class="form-control w-50 mx-auto mb-2" type="password" name="userPass" id="userPass" required placeholder="Enter Your Password..." v-model="signUpPayload.userPass" autocomplete="off">
             <button class="btn btn-dark mb-3 me-1 mt-4" v-on:click.prevent="userSignUp(signUpPayload)">Sign Up</button>
             <button class="btn btn-danger mb-3 mt-4" v-on:click.prevent="changeSign()">Sign In</button>
         </form>
@@ -77,20 +79,37 @@ export default{
             "firstName":'',
             "lastName":'',
             "userEmail":'',
-            "userPass":''
+            "userPass":'',
+            "address":''
         }
         
         async function userSignIn(signInPayload){
             spinner.value = !spinner.value;
+            if(signInPayload.userEmail == '' || signInPayload.userPass == ''){
+                alert('PLEASE ENTER YOUR CREDENTIALS!')
+                spinner.value = !spinner.value;
+                return
+            }
             await store.dispatch('login', signInPayload);
             localStorage.setItem('user',JSON.stringify(store.state.user))
-            location.reload();
-            spinner.value = !spinner.value;
-            router.push({name:'home', path:'/'}).then(() => location.reload())
+            if(await JSON.parse(localStorage.getItem('user')) == undefined || await JSON.parse(localStorage.getItem('user')) == null ){
+                console.log('undefined')
+                spinner.value = !spinner.value;
+                alert('USER DOES NOT EXIST! PLEASE CHECK YOUR EMAIL AND PASSWORD!')
+                return
+            } else {
+                router.push({name:'home', path:'/'}).then(() => location.reload())
+                spinner.value = !spinner.value;
+            }
         }
 
         async function userSignUp(signUpPayload){
             spinner.value = !spinner.value;
+            if(signUpPayload.userEmail == '' || signInPayload.userPass == ''){
+                alert('PLEASE FILL OUT ALL FIELDS!');
+                spinner.value = !spinner.value
+                return
+            }
             await store.dispatch('register', signUpPayload);
             let tempPayload = {
                 "userEmail":signUpPayload.userEmail,
@@ -98,8 +117,15 @@ export default{
             };
             await store.dispatch('login', tempPayload);
             localStorage.setItem('user', JSON.stringify(store.state.user));
-            router.push({name:'home', path:'/'}).then(() => location.reload())
-            spinner.value = !spinner.value;
+            if(await JSON.parse(localStorage.getItem('user')) == undefined || await JSON.parse(localStorage.getItem('user')) == null ){
+                console.log('undefined')
+                spinner.value = !spinner.value;
+                alert('USER DOES NOT EXIST! PLEASE CHECK YOUR EMAIL AND PASSWORD!')
+                return
+            } else {
+                router.push({name:'home', path:'/'}).then(() => location.reload())
+                spinner.value = !spinner.value;
+            }
         }
 
         function changeSign(){

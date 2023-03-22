@@ -1,5 +1,8 @@
 <template>
-  <div class="content-container">
+  <div class="content-container d-flex justify-content-center align-content-center" v-if="spinner">
+    <SpinnerComponent/>
+  </div>
+  <div class="content-container" v-else-if="!spinner">
     <div class="home d-flex justify-content-around pt-1 row">
       <div class="left col-12 pe-5 pe-lg-0 col-lg">
         <h2 class="display-6">Site Name</h2>
@@ -58,10 +61,25 @@
 
 <script>
 // @ is an alias to /src
+import { ref } from 'vue';
+import SpinnerComponent from '@/components/SpinnerComponent.vue';
+
 
 export default {
   name: 'HomeView',
+  data(){
+    let spinner = ref(true);
+    return{
+      spinner
+    }
+  },
   components: {
+    SpinnerComponent,
+},
+  mounted(){
+    setTimeout(() => {
+      this.spinner=!this.spinner
+    },1000)
   }
 }
 </script>
@@ -79,7 +97,7 @@ export default {
   z-index: 1000;
 }
 .content-container{
-  background-color: #ff9a3c;
+  background-color: #155263;
   overflow-x: hidden;
   min-height: 100vh;
   padding: 4em 0 1em 0;

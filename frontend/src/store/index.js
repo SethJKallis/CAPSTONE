@@ -56,7 +56,7 @@ export default createStore({
       const res = await axios.get(`${renderLink}/users/${id}`);
       const {err,results} = await res.data;
       if(results){
-        context.commit('setUsers', results);
+        context.commit('setUser', results[0]);
         context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
@@ -77,9 +77,13 @@ export default createStore({
       } else context.commit('setMessage', err);
     },
     async login(context, payload){
+      console.log(payload)
       const res = await axios.post(`${renderLink}/login`, payload);
       const {err, result} = await res.data;
-      if(result){
+      console.log(res)
+      console.log(result)
+      console.log(err)
+      if(result !== undefined && result !== null){
         console.log(result[0])
         context.commit('setUser', result[0]);
         context.commit('setSpinner', false);
@@ -90,6 +94,7 @@ export default createStore({
     async deleteUser(context, id){
       const res = await axios.delete(`${renderLink}/users/${id}`);
       const {err,results} = await res.data;
+      console.log(res)
       if(results){
         context.commit('setMessage', results);
       } else context.commit('setMessage', err);
