@@ -152,6 +152,7 @@ class orders {
             else result(null,results);
         })
     }
+    
 
     createOrder(data, result){
         sql.query(`INSERT INTO orders SET ?;`, [data], (err,results) => {
