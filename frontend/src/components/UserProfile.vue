@@ -70,7 +70,7 @@ export default{
         function deleteAccount(user){
             let doubleCheck = prompt('Are you sure?(y/n)');
             
-            if(doubleCheck !==null && doubleCheck.toLowerCase() == 'y'){
+            if(doubleCheck !== null && doubleCheck.toLowerCase() == 'y'){
                 store.dispatch('deleteUser', user.userID);
                 localStorage.removeItem('user');
                 router.push({name:'home', path:'/'}).then(() => location.reload())

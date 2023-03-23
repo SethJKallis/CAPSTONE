@@ -7,7 +7,7 @@
 
 <div v-else class="products">
     <div class="dropdown">
-  <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     Category
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -19,12 +19,28 @@
 </div>
 
 
+<div class="d-flex justify-content-center">
+  
+  <div id="Dropdown" class="d-flex">
+    <input type="text" id="searchInput" class="form-control me-1 w-100">
+    <button class="btn btn-dark" v-on:click="searchProducts()">Search</button>
+    <select>
+    <option v-for="item in searchArr" :key="item">Pakistan</option>
+
+    </select>
+  </div>
+</div>
+
+
 <div class="productsContainer row d-flex justify-content-center align-content-center g-0">
     <div v-for="product in products" :key="product" class="productContainer g-0 col-6 col-md-4 col-lg-3 mx-2 my-2">
         <h2 class="display-6 fw-bold">{{ product.prodName }}</h2>
-        <a v-on:click="storeProdID(product)" :href="$router.resolve({name:'product'}).href" >
-            <img class="prodImage mb-2" :src="product.prodImg" :alt="product.prodName">
-        </a>
+        <figure class="prodImage mb-2">
+            <a class="imgLink" v-on:click="storeProdID(product)" :href="$router.resolve({name:'product'}).href">
+                <figcaption>View Details</figcaption>
+            </a>
+                <img class="img" :src="product.prodImg" :alt="product.prodName">
+            </figure>
         <p class="lead">{{ product.prodDescription }}</p>
         <p class="lead fw-bold fs-2">R{{ product.price }}</p>
         <div class="btnCOntainer d-flex flex-column justify-content-center align-content-center">
@@ -73,6 +89,8 @@ export default{
 
         const products = computed(() => store.state.products);
         const spinner = computed(() => store.state.spinner);
+
+        let searchArr = [];
    
         function storeProdID(product){
             localStorage.setItem('prodID', product.prodID);
@@ -96,14 +114,33 @@ export default{
                 prodID: prodID,
                 quantity: parseInt(document.querySelector(`#quantity${prodID}`).value)
             };
-            console.log(orderPayload);
-
             await store.dispatch('addOrder', orderPayload);
-
             let message = computed(() => store.state.message)
-
             tempAlert(await message.value, 1000)
 
+        }
+
+       async function searchProducts(){
+        try{
+            await store.dispatch('fetchProducts').then(async () => {
+                console.log(await products.value)
+                    let inputValue = document.querySelector('#searchInput').value;
+                    if(inputValue == '' || inputValue == undefined || inputValue == null){
+                        alert('item Not Found!')
+                        return
+                    }
+                    let prodFilter = inputValue.toLowerCase();
+                    console.log(prodFilter);
+                    let filteredArr = products.value.find(item => item.prodName.toLowerCase() == prodFilter)
+                    console.log(filteredArr);
+                    let newArr = [filteredArr];
+                    console.log(newArr)
+                    return store.commit('setProducts', await newArr);
+            });
+        } catch(err){
+            alert('Item Not Found!')
+        }
+        
         }
 
         return{
@@ -111,7 +148,9 @@ export default{
             products,
             spinner,
             storeProdID,
-            addToCart
+            addToCart,
+            searchProducts,
+            searchArr
         }
     },
     components:{
@@ -141,21 +180,32 @@ export default{
 .productContainer:hover{
     scale: 1.025;
     box-shadow: 7px 7px 15px #000;
-
 }
 .prodImage{
-    border-radius: 50%;
-    transition: all 0.25s ease 0s;
-    width: 85%;
-    height: 300px;
+    position: relative;
+    width: 100%;
     max-height: 400px;
     min-height: auto;
     min-width: 290px;
 }
-.prodImage:hover{
-    scale: 1.025;
-    border-radius: 0;
-    box-shadow: 7px 7px 10px #000;
+.prodImage .img{
+    border-radius: 50%;
+    width: 85%;
+    height: 300px;
+    transition: all 0.25s ease 0s;
+}
+.prodImage .imgLink{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 50%;
+    right: 50%;
+    transform: translateX(50%) translateY(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000cc;
+    z-index: 2;
 }
 .addBtn{
     transition: all 0.25s ease 0s;
@@ -166,6 +216,20 @@ export default{
     box-shadow: 5px 5px 7px #000;
 }
 .dropdown-menu{
-    z-index: 10000000000;
+    z-index: 1;
+}
+
+.imgLink{
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.25s ease 0s;
+
+}
+.prodImage .imgLink:hover, 
+.prodImage .img:hover,
+.prodImage .imgLink:hover ~ .img{
+    scale: 1.025;
+    border-radius: 0;
+    box-shadow: 7px 7px 10px #000;
 }
 </style>

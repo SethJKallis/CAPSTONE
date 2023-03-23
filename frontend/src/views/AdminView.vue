@@ -101,6 +101,11 @@ export default{
             await store.dispatch('deleteProduct', product.prodID);
             await store.dispatch('fetchProducts');
         }
+
+        let deleteUser = async (user) => {
+            await store.dispatch('deleteUser', user.userID);
+            await store.dispatch('fetchUsers');
+        }
         const spinner = computed(() => store.state.spinner);
         return{
             user,
@@ -108,6 +113,7 @@ export default{
             userLoggedIn,
             products,
             deleteProduct,
+            deleteUser,
             spinner
         }
     },

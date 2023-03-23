@@ -11,7 +11,7 @@
         <p class="display-6">R{{ item.price }}</p>
 
         <div class="btnContainer d-flex flex-column justify-content-center align-content-center">
-            <button class="btn btn-dark w-25 mx-auto mb-3 lead">Add to Cart</button>
+            <button class="btn btn-dark w-25 mx-auto mb-3 lead" v-on:click="addToCart(item, user)">Add to Cart</button>
             <button class="btn btn-warning mx-auto w-25 lead" v-on:click="goBack">Back</button>
         </div>
     </div>
@@ -40,9 +40,32 @@ export default{
         let product = computed(() => store.state.product);
         let spinner = computed(() => store.state.spinner);
 
+        function tempAlert(message,messageTimeout){
+            var createdElement = document.createElement("div");
+            createdElement.setAttribute("style","position:fixed; top:4rem; background-color:green; color: white; width:100%; height:2rem; display:flex; justify-content: center; align-items: center;");
+            createdElement.innerHTML = message;
+            setTimeout(function(){
+            createdElement.parentNode.removeChild(createdElement);
+            },messageTimeout);
+            document.body.appendChild(createdElement);
+        }
+
+        async function addToCart(product, user){
+            let { prodID } = product;
+            let { userID } = user;
+            let orderPayload = {
+                userID: userID,
+                prodID: prodID,
+            };
+            await store.dispatch('addOrder', orderPayload);
+            let message = computed(() => store.state.message)
+            tempAlert(await message.value, 1000);
+        }
+
         return{
             user,
             product,
+            addToCart,
             goBack,
             spinner
         }
