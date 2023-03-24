@@ -1,10 +1,16 @@
 <template>
     <div class="contact">
-        <form action="" class="contactForm">
-            <label class="display-5 fw-bold mb-4 mt-2">CONTACT US</label>
-            <input type="text" name="contactName" id="contactName" class="form-control w-50 mx-auto mb-2" required placeholder="Enter your name...">
-            <input type="text" name="contactEmail" id="contactEmail" class="form-control w-50 mx-auto mb-3" required placeholder="Enter you email address...">
-            <textarea name="comments" id="comments" cols="30" rows="10" class="form-control w-50 mx-auto mb-3" placeholder="Let us know what you think..."></textarea>
+        <form action="https://formspree.io/f/xnqybono" method="post" target="_blank" class="contactForm">
+            <h1 class="display-5 fw-bold mb-4 mt-2">CONTACT US</h1>
+            <label for="contactName">
+                <input type="text" name="contactName" id="contactName" class="form-control w-50 mx-auto mb-2" required placeholder="Enter your name...">
+            </label>
+            <label for="contactEmail">
+                <input type="text" name="contactEmail" id="contactEmail" class="form-control w-50 mx-auto mb-3" required placeholder="Enter you email address...">
+            </label>
+            <label for="comments">
+                <textarea name="comments" id="comments" cols="30" rows="10" class="form-control w-50 mx-auto mb-3" placeholder="Let us know what you think..."></textarea>
+            </label>
             <button type="submit" class="btn btn-dark mb-2 me-1">Submit</button>
             <button type="reset" class="btn btn-danger mb-2">Reset</button>
         </form>
@@ -29,9 +35,13 @@ label{
     width: 50%;
     min-width: 250px;
     margin: 0 auto;
+    display: flex;
+    flex-flow: column nowrap;
 }
 button{
-  transition: all 0.25s ease 0s;
+    width: 25%;
+    transition: all 0.25s ease 0s;
+    align-self: center;
 }
 button:hover{
     scale: 1.05;

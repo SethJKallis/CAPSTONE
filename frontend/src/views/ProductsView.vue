@@ -6,7 +6,7 @@
     </div>
 
 <div v-else class="products">
-    <div class="dropdown">
+    <div class="dropdown mb-2">
         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
     Category
   </button>
@@ -24,10 +24,6 @@
   <div id="Dropdown" class="d-flex">
     <input type="text" id="searchInput" class="form-control me-1 w-100">
     <button class="btn btn-dark" v-on:click="searchProducts()">Search</button>
-    <select>
-    <option v-for="item in searchArr" :key="item">Pakistan</option>
-
-    </select>
   </div>
 </div>
 
@@ -87,25 +83,24 @@ export default{
         const userLoggedIn = JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null : userLoggedIn;
 
-        const products = computed(() => store.state.products);
         const spinner = computed(() => store.state.spinner);
-
+        
         let searchArr = [];
-   
+        
         function storeProdID(product){
             localStorage.setItem('prodID', product.prodID);
         }
 
         function tempAlert(message,messageTimeout){
             var createdElement = document.createElement("div");
-            createdElement.setAttribute("style","position:fixed; top:4rem; background-color:green; color: white; width:100%; height:2rem; display:flex; justify-content: center; align-items: center;");
+            createdElement.setAttribute("style","position:fixed; top:4rem; background-color:green; color: white; width:100%; height:2rem; display:flex; justify-content: center; align-items: center; z-index: 10;");
             createdElement.innerHTML = message;
             setTimeout(function(){
             createdElement.parentNode.removeChild(createdElement);
-            },messageTimeout);
-            document.body.appendChild(createdElement);
+        },messageTimeout);
+        document.body.appendChild(createdElement);
         }
-
+        
         async function addToCart(product, user){
             let { prodID } = product;
             let { userID } = user;
@@ -117,32 +112,30 @@ export default{
             await store.dispatch('addOrder', orderPayload);
             let message = computed(() => store.state.message)
             tempAlert(await message.value, 1000)
-
-        }
-
-       async function searchProducts(){
-        try{
-            await store.dispatch('fetchProducts').then(async () => {
-                console.log(await products.value)
-                    let inputValue = document.querySelector('#searchInput').value;
-                    if(inputValue == '' || inputValue == undefined || inputValue == null){
-                        alert('item Not Found!')
-                        return
-                    }
-                    let prodFilter = inputValue.toLowerCase();
-                    console.log(prodFilter);
-                    let filteredArr = products.value.find(item => item.prodName.toLowerCase() == prodFilter)
-                    console.log(filteredArr);
-                    let newArr = [filteredArr];
-                    console.log(newArr)
-                    return store.commit('setProducts', await newArr);
-            });
-        } catch(err){
-            alert('Item Not Found!')
+            
         }
         
-        }
-
+        async function searchProducts(){
+        try{
+            await store.dispatch('fetchProducts').then(async () => {
+                let inputValue = document.querySelector('#searchInput').value;
+                if(inputValue == '' || inputValue == undefined || inputValue == null){
+                    alert('Nothing To Search')
+                    return
+                }
+                let prodFilter = inputValue.toLowerCase();
+                    let filteredArr = products.value.filter((item) => {
+                        let itemName = item.prodName.toLowerCase();
+                            return itemName.includes(`${prodFilter}`)
+                        });
+                        let newArr = filteredArr;
+                        return store.commit('setProducts', newArr);
+                    });
+                } catch(err){
+                    alert('Item Not Found!')
+                }}
+                
+                const products = computed(() => store.state.products);
         return{
             user,
             products,

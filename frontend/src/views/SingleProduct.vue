@@ -42,7 +42,7 @@ export default{
 
         function tempAlert(message,messageTimeout){
             var createdElement = document.createElement("div");
-            createdElement.setAttribute("style","position:fixed; top:4rem; background-color:green; color: white; width:100%; height:2rem; display:flex; justify-content: center; align-items: center;");
+            createdElement.setAttribute("style","position:fixed; top:4rem; background-color:green; color: white; width:100%; height:2rem; display:flex; justify-content: center; align-items: center; z-index:10;");
             createdElement.innerHTML = message;
             setTimeout(function(){
             createdElement.parentNode.removeChild(createdElement);

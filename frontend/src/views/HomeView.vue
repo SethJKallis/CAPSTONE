@@ -4,9 +4,9 @@
   </div>
   <div class="content-container" v-else-if="!spinner">
     <div class="home d-flex justify-content-around pt-1 row">
-      <div class="left col-12 pe-5 pe-lg-0 col-lg">
-        <h2 class="display-6">Site Name</h2>
-        <p class="lead text-start w-100">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+      <div class="left col-12 pe-lg-0 col-lg">
+        <h2 class="display-6 fw-bolder">Cloud Café</h2>
+        <p class="lead text-start w-100 d-none d-sm-block">Welcome to the Cloud Café, South Africa's leading E-Café. We offer caffeine products of all kinds as well as tea for those of you who prefer not to walk around buzzing!</p>
       </div>
       <div class="right d-none d-lg-flex col">
         <img class="homeImage me-5" alt="Home Image" src="../assets/digitalcoffee.png">
@@ -23,7 +23,7 @@
     <div class="carousel-item active" data-bs-interval="5000">
       <img src="../assets/coffeeBanner.jpg" class="carouselImg d-block" alt="ALT">
       <div class="carousel-caption">
-        <h5 class="display-6 fw-bold">Coffee</h5>
+        <h5 class="display-6 fw-bold homeHeader">Coffee</h5>
         <p class="lead">All your favorite coffee beverages ready to be ordered at the click of  button!</p>
         <button class="btn btn-dark"><router-link class="linkBtn" :to="{name:'productsCategory', params :{id:1}}">Coffee</router-link></button>
 
@@ -79,7 +79,7 @@ export default {
   mounted(){
     setTimeout(() => {
       this.spinner=!this.spinner
-    },1000)
+    },1500)
   }
 }
 </script>
@@ -109,7 +109,7 @@ export default {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: start;
-  padding: 0 0 0 3.5em;
+  padding: 0 0 0 3em;
   width: 100%;
 }
 .right{
@@ -209,5 +209,17 @@ h5{
 }
 .carousel-item p{
   color: #ffffff;
+}
+
+@media screen and (max-width:575px) {
+  .left{
+    width: 102vw;
+    text-align: center;
+    align-items: center;
+    padding: 0;
+  }
+  h2{
+    text-align: center;
+  }
 }
 </style>
