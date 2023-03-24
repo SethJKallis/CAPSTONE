@@ -52,6 +52,8 @@ router.put('/orders/:id', bodyParser.json(), controller.updateOrder);
 
 router.delete('/orders/:id', controller.deleteOrder);
 
+router.delete('/order/:id', controller.clearOrders)
+
 //CATEGORIES
 router.get('/category', controller.fetchCategory);
 

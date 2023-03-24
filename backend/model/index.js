@@ -174,6 +174,13 @@ class orders {
             else result(null,results);
         })
     }
+
+    clearOrders(id, result){
+        sql.query(`DELETE FROM orders WHERE userID = ?`, [id], (err,results) => {
+            if(err) result(err,null);
+            else result(null, results)
+        })
+    }
 }
 
 module.exports = {users, products, category, orders}

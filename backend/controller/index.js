@@ -172,7 +172,14 @@ class control {
             else res.status(200).send({results});
         })
     }
-
+    
+    clearOrders(req,res){
+        const id = req.params.id;
+        ordersModel.clearOrders(id, (err,results) => {
+            if(err) res.status(400).send({err});
+            else res.status(200).send({results});
+        })
+    }
 
 //CATEGORY
 
@@ -215,6 +222,7 @@ class control {
             else res.status(200).send({results});
         })
     }
+
 }
 
 module.exports = {control};
