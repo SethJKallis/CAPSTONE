@@ -28,7 +28,7 @@
         
         <div class="lastRoutes me-lg-1 text-center mx-auto px-auto d-flex">
             <li v-if="user == null" class="nav-item mt-sm-3 mt-lg-0">
-                <router-link to="/userSign">Sign In/Sign Up</router-link>
+                <router-link to="/login">Sign In/Sign Up</router-link>
             </li>
             <li v-if="user !== null" class="nav-item m-0 me-lg-3">
               <router-link to="/user/cart">

@@ -57,11 +57,13 @@
 <script>
 import { useStore } from 'vuex';
 import {computed} from '@vue/runtime-core';
+import { useRouter } from 'vue-router';
 import SpinnerComponent from '../components/SpinnerComponent.vue';
 
 export default{
     setup(){
         const store = useStore();
+        const router = useRouter();
 
         let locationURL = location.pathname;
         let locationArr = locationURL.split('/');
@@ -93,17 +95,22 @@ export default{
         }
         
         async function addToCart(product, user){
-            let { prodID } = product;
-            let { userID } = user;
-            let orderPayload = {
-                userID: userID,
-                prodID: prodID,
-                quantity: parseInt(document.querySelector(`#quantity${prodID}`).value)
-            };
-            await store.dispatch('addOrder', orderPayload);
-            let message = computed(() => store.state.message)
-            tempAlert(await message.value, 1000)
-            
+            if(user == null){
+                router.push({name:'login', path:'/login'});
+                return
+            } else {
+                let { prodID } = product;
+                let { userID } = user;
+                let orderPayload = {
+                    userID: userID,
+                    prodID: prodID,
+                    quantity: parseInt(document.querySelector(`#quantity${prodID}`).value)
+                };
+                await store.dispatch('addOrder', orderPayload);
+                let message = computed(() => store.state.message)
+                tempAlert(await message.value, 1000);
+                
+            }
         }
         
         async function searchProducts(){

@@ -28,22 +28,22 @@ const routes = [
     path: '/admin',
     beforeEnter(){
       if(user == null){
-        router.push({name:'sign'})
+        router.push({name:'login'})
       } else return
     },
     name: 'admin',
     component:AdminView
   },
   {
-    path:'/userSign',
-    name:'sign',
+    path:'/login',
+    name:'login',
     component:SignInSignup
   },
   {
     path:'/contact',
     beforeEnter(){
       if(user == null){
-        router.push({name:'sign'})
+        router.push({name:'login'})
       } else return
     },
     name:'contact',
@@ -63,7 +63,7 @@ const routes = [
     path:'/product',
     beforeEnter(){
       if(user == null){
-        router.push({name:'sign'})
+        router.push({name:'login'})
       } else return
     },
     name: 'product',
@@ -73,7 +73,7 @@ const routes = [
     path: '/user',
     beforeEnter(){
       if(user == null){
-        router.push({name:'sign'})
+        router.push({name:'login'})
       } else return
     },
     name: 'user',
@@ -83,7 +83,7 @@ const routes = [
     path:'/user/cart',
     beforeEnter(){
       if(user == null){
-        router.push({name:'sign'})
+        router.push({name:'login'})
       } else return
     },
     name:'cart',
