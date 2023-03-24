@@ -1,7 +1,7 @@
 import { createStore } from 'vuex'
 import axios from 'axios';
 
-const renderLink = 'https://capstone-backend-5tch.onrender.com'
+const renderLink = 'http://localhost:3500'
 
 export default createStore({
   state: {
@@ -87,6 +87,7 @@ export default createStore({
       }
     },
     async deleteUser(context, id){
+      console.log(id)
       const res = await axios.delete(`${renderLink}/users/${id}`);
       const {err,results} = await res.data;
       console.log(res)
@@ -149,7 +150,6 @@ export default createStore({
       const {err,results} = await res.data;
       if(results){
         context.commit('setOrders', results);
-        // context.commit('setSpinner', false);
       } else context.commit('setMessage', err);
     },
     async addOrder(context, payload){
@@ -187,6 +187,13 @@ export default createStore({
       } else {
         context.commit('setMessage', err)
       }
+    },
+    async clearOrders(context, id){
+      const res = await axios.delete(`${renderLink}/order/${id}`);
+      const {err,results} = await res.data;
+      if(results){
+        context.commit('setMessage', results);
+      } else context.commit('setMessage', err);
     }
   },
   modules: {

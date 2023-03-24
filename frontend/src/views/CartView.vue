@@ -28,7 +28,7 @@
     </div>
     </div>
     <div class="checkout" v-else-if="!spinner && orderCheck">
-        <h2 class="display-5 fw-bold">Checkout</h2>
+        <h2 class="display-5 fw-bold">Cart Checkout</h2>
         <table class="table table-dark table-hover table-striped">
             <thead>
                 <tr>
@@ -55,22 +55,22 @@
             </tbody>
             <tfoot>
                 <tr class="totalHeaderRow">
-                    <th class="bg-transparent"></th>
-                    <th class="bg-transparent"></th>
-                    <th class="bg-transparent"></th>
+                    <th class="totalHeader">SERVICE FEE</th>
+                    <th class="totalHeader">DELIVERY FEE</th>
+                    <th class="totalHeader">DELIVERY ADDRESS</th>
                     <th class="totalHeader">TOTAL PRICE</th>
                 </tr>
                 <tr class="totalDataRow">
-                    <td class="bg-transparent"></td>
-                    <td class="bg-transparent"></td>
-                    <td class="bg-transparent"></td>
+                    <td class="totalData">R{{ ordersTotal(orders)/100 }}</td>
+                    <td class="totalData">R{{ ordersTotal(orders)/20 }}</td>
+                    <td class="totalData">{{user.address}}</td>
                     <td class="totalData">
-                        R{{ ordersTotal(orders) }}
+                        R{{ ordersTotal(orders) + ordersTotal(orders)/100 + ordersTotal(orders)/20 }}
                     </td>
                 </tr>
             </tfoot>
         </table>
-        <button class="btn btn-dark">PURCHASE</button>
+        <button class="btn btn-dark" v-on:click="purchase(user)">PURCHASE</button>
     </div>
 </template>
 
@@ -93,7 +93,7 @@ export default{
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
         
         store.dispatch('fetchUserOrders', user.userID);
-        let orders = computed( () => store.state.orders);
+        let orders = computed(() => store.state.orders);
         
         async function orderSetter(){
             spinner.value = !spinner.value
@@ -138,13 +138,42 @@ export default{
             location.reload();
         }
 
+        function tempAlert(message,messageTimeout){
+            let createdElement = document.createElement("div");
+            createdElement.setAttribute("style","position:fixed; top:4rem; background-color:#000; color: white; width:100%; height:5rem; display:flex; justify-content: center; align-items: center; z-index: 10;font-size:1.5rem; padding:1em 1em;");
+            createdElement.innerHTML = message;
+            setTimeout(function(){
+            createdElement.parentNode.removeChild(createdElement);
+        },messageTimeout);
+        document.body.appendChild(createdElement);
+        }
+
+        async function purchase(user){
+            let purchaseCheck = prompt('Are you sure?(y/n)');
+            if(purchaseCheck !== null && purchaseCheck.toLowerCase() == 'y'){
+                tempAlert(`Your order has been sent to ${user.address}. 
+                <br>
+                Payment is due once you receive your product... ENJOY!
+                `, 3000);
+                await store.dispatch('clearOrders', user.userID);
+                orderCheck.value=!orderCheck.value
+                orderSetter();
+            } else if(purchaseCheck !== null && purchaseCheck.toLowerCase() == 'n'){
+                alert('Purchase has been cancelled!')
+            } 
+            else {
+                alert('Please Enter a Valid Response!')
+            }
+        }
+
         return{
             user,
             orders,
             ordersTotal,
             orderCheck,
             removeOrder,
-            spinner
+            spinner,
+            purchase
         }
     },
     components:{
@@ -169,7 +198,7 @@ export default{
     align-items: center;
 }
 h2{
-    color: #ff9a3c;
+    color: #ffffff;
 }
 .spinner {
  height: 100%;

@@ -63,7 +63,6 @@ export default{
                 quantity:parseInt(document.querySelector(`#quantity${order.orderID}`).value)
             }
             if(payload.quantity < 1 || payload.quantity > 10){
-                console.log(payload)
                 return alert('Quantity is not valid!');
             } else {
                 console.log(payload)
