@@ -60,7 +60,6 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import { ref } from 'vue';
 import SpinnerComponent from '@/components/SpinnerComponent.vue';
 
@@ -85,6 +84,10 @@ export default {
 </script>
 
 <style scoped>
+*{
+  overflow-y: hidden;
+
+}
 .linkBtn{
   text-decoration: none;
   color: inherit;
@@ -104,7 +107,6 @@ export default {
 }
 
 .left{
-  /* border: 2px solid red; */
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -113,7 +115,6 @@ export default {
   width: 100%;
 }
 .right{
-  /* border: 2px solid blue; */
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -126,13 +127,10 @@ export default {
   max-width: 20%;
   min-width: 50px;
   height: auto;
-  /* transform: translateX(160px); */
   animation: roll 5s ease-in-out 0.5s 1 alternate forwards;
 }
 
 .category{
-  /* border: 2px solid gold; */
-  /* border-radius: 1em; */
   background-color: #ff9a3c;
   min-width: 200px;
   min-height: 300px;
@@ -143,6 +141,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   transition: all 0.25s ease 0s;
+  
 }
 
 
@@ -167,8 +166,6 @@ export default {
   }
   
 }
-
-
 .carousel-caption button{
   transition: all 0.25s ease 0s;
 }
@@ -188,15 +185,15 @@ export default {
 #carouselCategory{
   width: 100%;
   min-width: 300px;
-  height: 600px;
+  height: 570px;
   margin: 0 auto;
   background-color: #ff9a3c;
+  overflow-y: hidden;
 }
 .carousel-caption{
   position: absolute;
   top: 30%;
   bottom: 30%;
-  /* border: 2px solid red; */
   background-color: #000000c2;
   display: flex;
   flex-flow: column nowrap;

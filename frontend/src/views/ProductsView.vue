@@ -1,9 +1,7 @@
 <template>
-
-    
-    <div v-if="spinner">
-        <SpinnerComponent :class="'products'"/>
-    </div>
+<div v-if="spinner">
+    <SpinnerComponent :class="'products'"/>
+</div>
 
 <div v-else class="products">
     <div class="dropdown mb-2">
@@ -18,15 +16,12 @@
   </ul>
 </div>
 
-
 <div class="d-flex justify-content-center">
-  
   <div id="Dropdown" class="d-flex">
     <input type="text" id="searchInput" class="form-control me-1 w-100">
     <button class="btn btn-dark" v-on:click="searchProducts()">Search</button>
   </div>
 </div>
-
 
 <div class="productsContainer row d-flex justify-content-center align-content-center g-0">
     <div v-for="product in products" :key="product" class="productContainer g-0 col-6 col-md-4 col-lg-3 mx-2 my-2">
@@ -56,7 +51,6 @@
         </div>
     </div>
 </div>
-
 </div>
 </template>
 
@@ -82,11 +76,8 @@ export default{
 
         const userLoggedIn = JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null : userLoggedIn;
-
         const spinner = computed(() => store.state.spinner);
-        
         let searchArr = [];
-        
         function storeProdID(product){
             localStorage.setItem('prodID', product.prodID);
         }
@@ -135,7 +126,7 @@ export default{
                     alert('Item Not Found!')
                 }}
                 
-                const products = computed(() => store.state.products);
+        const products = computed(() => store.state.products);
         return{
             user,
             products,

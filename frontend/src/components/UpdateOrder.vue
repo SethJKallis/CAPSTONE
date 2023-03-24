@@ -6,7 +6,6 @@
 </svg>
 </button>
 
-<!-- Modal -->
 <div class="modal fade mt-5" :id="'updateOrderModal'+this.order.orderID" tabindex="-1" aria-labelledby="updateOrderModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -65,7 +64,6 @@ export default{
             if(payload.quantity < 1 || payload.quantity > 10){
                 return alert('Quantity is not valid!');
             } else {
-                console.log(payload)
                 await store.dispatch('updateOrder', payload);
                 await store.dispatch('fetchUserOrders', payload.userID);
             }

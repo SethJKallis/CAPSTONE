@@ -206,7 +206,6 @@ h2{
  margin: 0;
  padding: 0;
  font-size: 3vw;
-
  font-weight: 600;
  font-family: monospace;
  letter-spacing: 0.5em;

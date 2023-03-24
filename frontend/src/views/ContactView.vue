@@ -27,7 +27,6 @@ label{
     background-repeat: no-repeat;
     background-position: center 0;
     min-height: 100vh;
-    
     padding: 8em 0 1em 0;
 }
 .contactForm{

@@ -56,7 +56,6 @@ export default{
   width: 100%;
   height: 100%;
 }
-
 .wheel {
   background: radial-gradient(100% 100% at center,hsla(0,0%,60%,0) 47.8%,hsl(0,0%,60%) 48%);
   z-index: 2;

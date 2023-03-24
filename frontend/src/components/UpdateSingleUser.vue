@@ -1,11 +1,9 @@
 <template>
     <div>
-        <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" :data-bs-target="'#updateUserModal'+this.userDetails.userID">
   EDIT
 </button>
 
-<!-- Modal -->
 <div class="modal fade mt-5" :id="'updateUserModal'+this.userDetails.userID" tabindex="-1" aria-labelledby="updateUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

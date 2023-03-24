@@ -93,12 +93,10 @@ export default{
 
 <style scoped>
 .container-fluid{
-    /* border: 2px solid gold; */
     padding: 0;
     background-color: #000000cf;
 }
 .profileImg{
-    /* border: 2px solid red; */
     display: flex;
     justify-content: center;
     align-content: center;
@@ -114,7 +112,6 @@ export default{
     padding: 0;
     margin: 0;
     position: relative;
-    /* border: 2px solid blue; */
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -126,7 +123,6 @@ export default{
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    /* border: 2px solid black; */
 }
 .greenDot{
     position: absolute;

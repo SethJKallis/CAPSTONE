@@ -1,11 +1,9 @@
 <template>
     <div>
-        <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">
   Add Product
 </button>
 
-<!-- Modal -->
 <div class="modal fade mt-5" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

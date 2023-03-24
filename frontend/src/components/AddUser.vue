@@ -1,11 +1,9 @@
 <template>
     <div>
-        <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addUserModal">
   Add User
 </button>
 
-<!-- Modal -->
 <div class="modal fade mt-5" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -38,7 +36,6 @@ import { useStore } from 'vuex';
 export default{
     setup(){
         const store = useStore();
-
         const userLoggedIn =JSON.parse(localStorage.getItem('user'));
         let user = userLoggedIn == null || userLoggedIn == undefined ? null: userLoggedIn;
 
