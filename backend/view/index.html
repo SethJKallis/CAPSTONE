@@ -6,7 +6,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HOME</title>
 </head>
-<body>
-    <h2>Route Description</h2>
+<body style="text-align: center;">
+    <h1>Route Description</h1>
+    <table style="width: 50%; margin: 0 auto 30px;">
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Path</th>
+                <th>HTTP Method & Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Fetch/Users</td>
+                <td>/users</td>
+                <td>GET: gets all users</td>
+            </tr>
+            <tr>
+                <td>Fetch/User</td>
+                <td>/users/:id</td>
+                <td>GET: gets a single user</td>
+            </tr>
+            <tr>
+                <td>Create/User</td>
+                <td>/register</td>
+                <td>POST: adds new user</td>
+            </tr>
+            <tr>
+                <td>Login/User</td>
+                <td>/login</td>
+                <td>POST: retrieve a valid users</td>
+            </tr>
+            <tr>
+                <td>Update/User</td>
+                <td>users/:id</td>
+                <td>POST: update existing user</td>
+            </tr>
+            <tr>
+                <td>Delete/User</td>
+                <td>/users/:id</td>
+                <td>DELETE: remove a user</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>PRODUCT ROUTE DESCRIPTION</h2>
+    <table style="width:50%; margin: auto;">
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Path</th>
+                <th>HTTP Method & Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Fetch/Products</td>
+                <td>/products</td>
+                <td>GET: gets all products</td>
+            </tr>
+            <tr>
+                <td>Fetch/Product</td>
+                <td>/products/:id</td>
+                <td>GET: gets a single product</td>
+            </tr>
+            <tr>
+                <td>Create/Product</td>
+                <td>/products</td>
+                <td>POST: adds a new product</td>
+            </tr>
+            <tr>
+                <td>Update/Product</td>
+                <td>/products/:id</td>
+                <td>POST: updates existing product</td>
+            </tr>
+            <tr>
+                <td>Delete/Product</td>
+                <td>/products/:id</td>
+                <td>DELETE: removes product</td>
+            </tr>
+        </tbody>
+    </table>
 </body>
 </html>
