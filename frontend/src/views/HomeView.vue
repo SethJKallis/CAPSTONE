@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div id="carouselCategory" class="carousel slide" data-bs-ride="carousel">
+    <div id="content-container" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselCategory" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselCategory" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
 *{
-  overflow-y: hidden;
+  overflow: hidden;
 
 }
 .linkBtn{
@@ -103,7 +103,8 @@ export default {
   background-color: #155263;
   overflow-x: hidden;
   min-height: 100vh;
-  padding: 4em 0 1em 0;
+  min-width:100vw;
+  padding: 4em 0 0 0;
 }
 
 .left{
@@ -179,7 +180,7 @@ export default {
   height: 100%;
 }
 .carousel-item img{
-  height: 650px;
+  height: 657px;
   
 }
 #carouselCategory{
